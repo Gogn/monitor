@@ -10,17 +10,15 @@ fb.auth().onAuthStateChanged(function(user) {
   console.log('onAuthStateChanged')
   if (user) {
     // User is signed in.
-    // console.log(user)
-
-    try {
+    // try {
       //Change to AsyncStorage (and may be add await)
-      let token = user.token
-      localStorage.setItem('token', token);
+      // let token = user.token
+      // localStorage.setItem('token', token);
       localStorage.setItem('userId', user.uid);
-      authSuccess()
-    } catch (error) {
-      throw new Error(error);
-    }
+      authSuccess(user.uid)
+    // } catch (error) {
+    //   throw new Error(error);
+    // }
   } else {
     // User is signed out.
     console.log('SIGN OUT')
@@ -35,17 +33,12 @@ export function authActions(email, password, isLogin) {
       email, password,
       returnSecureToken: true
     }
-
     if (isLogin) {
       fb.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
         throw new Error(error);
       });
     } else {
       fb.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
-        // var errorCode = error.code;
-        // var errorMessage = error.message;
         throw new Error(error);
       });
     }
@@ -53,9 +46,10 @@ export function authActions(email, password, isLogin) {
   }
 }
 
-export function authSuccess(token) {
+export function authSuccess(userId) {
+  console.log('authSuccess')
   return {
     type: AUTH_SUCCESS,
-    token
+    userId
   }
 }

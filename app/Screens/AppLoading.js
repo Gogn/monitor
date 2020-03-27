@@ -11,11 +11,10 @@ export const AppLoading = ({navigation}) => {
   const getAuthState = async () => {
     try {
       // let token = await localStorage.getItem('token');
-      // let user = await localStorage.getItem('userId');
-      let user = firebase.auth().currentUser;
-      console.log('user: ', user)
+      let user = await localStorage.getItem('userId');
+      // let user = firebase.auth().currentUser;
+      // console.log('user: ', user)
 
-   // if (token !== null && user!== null) await handleLogin({token, user:JSON.parse(user)});
       if (user) await handleLogin(user);
       else await handleLogout();
 
@@ -30,12 +29,6 @@ export const AppLoading = ({navigation}) => {
     try{
       //STORE DATA
       let userId = user.uid
-      // let data_ = [[user, JSON.stringify(user)], [tokenId, token]];
-      // await AsyncStorage.multiSet(data_);
-      //
-      // //AXIOS AUTHORIZATION HEADER
-      // axios.defaults.headers.common["Authorization"] = `Bearer ${data.token}`;
-
       dispatch({type: AUTH_SUCCESS, userId});
     }catch (error) {
       throw new Error(error);
@@ -47,7 +40,7 @@ export const AppLoading = ({navigation}) => {
     try{
       //REMOVE DATA
       // localStorage.removeItem('token')
-      // localStorage.removeItem('userId')
+      localStorage.removeItem('userId')
 
       firebase.auth().signOut().then(function() {
         dispatch({type: AUTH_LOGOUT});
