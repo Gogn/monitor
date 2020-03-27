@@ -1,7 +1,7 @@
 import {AUTH_LOGOUT, AUTH_SUCCESS} from "../actions/actionTypes";
 
 const initialState = {
-  token: null
+  userId: null
 }
 
 export default function authReducer(state = initialState, action) {
@@ -10,12 +10,12 @@ export default function authReducer(state = initialState, action) {
       console.log('AUTH_SUCCESS')
       return {
         ...state,
-        token: action.token
+        userId: action.userId
       }
     case AUTH_LOGOUT:
       return {
         ...state,
-        token: null
+        userId: null
       }
     default:
       return state

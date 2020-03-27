@@ -3,7 +3,7 @@ import {StyleSheet, Text} from "react-native";
 import {View} from "react-native";
 import {Button} from 'react-native-elements';
 import {useDispatch, useSelector} from "react-redux";
-import {auth} from "../../store/actions/auth";
+import {authActions} from "../../store/actions/authActions";
 import is from 'is_js'
 import InputForm from "../../Components/UI/Input";
 
@@ -44,12 +44,11 @@ export const Login = ({navigation}) => {
   )
 
   const loginHandler = () => {
-    dispatch(auth(state.formControls.email.value, state.formControls.password.value, true))
+    dispatch(authActions(state.formControls.email.value, state.formControls.password.value, true))
     navigation.navigate('Home')
   }
 
   const validateControl = (value, validation) => {
-    console.log('validateControl')
     if (!validation) {
       console.log('noValidation')
       return true //Если параметры не были переданы - не валидировать
@@ -62,9 +61,7 @@ export const Login = ({navigation}) => {
       isValid = is.email(value) && isValid
     }
     if (validation.minLength) {
-      console.log('minlength')
       isValid = value.length >= validation.minLength && isValid
-      console.log(isValid)
     }
 
     return isValid

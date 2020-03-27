@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import AppLoading from "expo/build/launch/AppLoading";
 import AppNavigation from "./app/Screens/AppNavigation";
 import {combineReducers, createStore} from "redux";
-import authReducer from "./app/store/reducers/auth";
+import authReducer from "./app/store/reducers/authReducer";
 import {Provider} from "react-redux";
 import {store} from "./app/store/store";
 

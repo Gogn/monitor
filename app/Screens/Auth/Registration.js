@@ -3,7 +3,7 @@ import {StyleSheet, Text} from "react-native";
 import {View} from "react-native";
 import {Button, CheckBox} from 'react-native-elements';
 import {useDispatch, useSelector} from "react-redux";
-import {auth} from "../../store/actions/auth";
+import {authActions} from "../../store/actions/authActions";
 import is from 'is_js'
 import InputForm from "../../Components/UI/Input";
 
@@ -67,7 +67,7 @@ export const Registration = ({navigation}) => {
   },[state.formControls, state.checked])
 
   const registrationHandler = () => {
-    dispatch(auth(state.formControls.email.value, state.formControls.password.value, false))
+    dispatch(authActions(state.formControls.email.value, state.formControls.password.value, false))
     navigation.navigate('Loading')
   }
 
