@@ -13,9 +13,7 @@ import {Chart} from "./Monitor/Chart";
 const Tab = createBottomTabNavigator();
 function AppTabs() {
   return (
-    <Tab.Navigator options={{
-      headerLeft: null
-    }}>
+    <Tab.Navigator>
       <Tab.Screen name="Settings" component={Settings} />
       <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Chart" component={Chart} />
@@ -35,16 +33,13 @@ export default function AppNavigation() {
           // },
           //   headerTintColor: 'white',
           //   headerBackTitleVisible: false
-            headerShown: false
+          //   headerShown: false
           }}
         >
           <Stack.Screen name="Loading" component={AppLoading}/>
-          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Login" component={Login} options={{headerLeft: null}}/>
           <Stack.Screen name="Registration" component={Registration}/>
-          {/*<Stack.Screen name="Home" component={Home} options={{*/}
-          {/*  headerLeft: null*/}
-          {/*}}/>*/}
-          <Stack.Screen name="Home" component={AppTabs}/>
+          <Stack.Screen name="Home" component={AppTabs} options={{headerShown: false}}/>
         </Stack.Navigator>
       </NavigationContainer>
   );

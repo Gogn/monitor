@@ -8,7 +8,7 @@ import {handleLogin, handleLogout} from "../store/actions/authActions";
 
 export const AppLoading = ({navigation}) => {
   const store = useSelector(state => state.authReducer)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   // const getAuthState = () => {
   //     try {

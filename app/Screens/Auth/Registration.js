@@ -56,19 +56,32 @@ export const Registration = ({navigation}) => {
     }
   )
 
+  const [errorMessage, setErrorMessage] = useState()
+
+  //Set isFormValid and setErrorMessage (passwords)
   useEffect(() => {
     let isFormValid = true
     Object.keys(state.formControls).forEach(name => {
-      isFormValid = (state.formControls[name].valid & state.checked) && isFormValid
+      isFormValid = (state.formControls[name].valid & state.checked & (state.formControls.password.value === state.formControls.passwordAgain.value)) && isFormValid
     })
     setState({
       ...state, isFormValid
     })
+    if (state.formControls.password.value === state.formControls.passwordAgain.value) {
+      setErrorMessage(null)
+    } else {
+      setErrorMessage('Passwords mismatch')
+    }
   },[state.formControls, state.checked])
 
   const registrationHandler = () => {
     dispatch(authActions(state.formControls.email.value, state.formControls.password.value, false))
-    navigation.navigate('Loading')
+      .then(() => navigation.navigate('Loading'))
+      .catch(function (error) {
+        setErrorMessage(error.message)
+        // debugger
+        // console.log(error)
+      })
   }
 
   const validateControl = (value, validation) => {
@@ -137,12 +150,13 @@ export const Registration = ({navigation}) => {
 
       {renderInputs()}
 
+      <Text style={{color: 'red'}}>{errorMessage}</Text>
+
       <CheckBox
         title='By clicking sign up button, you agree to our Terms of Service'
         checked={state.checked}
         onPress={() => setState({...state, checked: !state.checked})}
         />
-
 
       <Button
         title="Submit"

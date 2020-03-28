@@ -1,56 +1,80 @@
-import axios from "axios";
 import firebase from "firebase";
-import {fb} from '../../firebase'
+import {db, fb} from '../../firebase'
+import 'firebase/firestore';
 import {AUTH_LOGOUT, AUTH_SUCCESS} from "./actionTypes";
+import {useDispatch} from "react-redux";
 
-
-fb.auth().onAuthStateChanged(function (user) {
-  console.log('onAuthStateChanged')
-  if (user) {
-    // User is signed in.
-    try {
-      //Change to AsyncStorage (and may be add await)
-      // let token = user.token
-      // localStorage.setItem('token', token);
-      localStorage.setItem('userId', user.uid);
-      handleLogin(user.uid)
-    } catch (error) {
-      throw new Error(error);
-    }
-  } else {
-    // User is signed out.
-    console.log('SIGN OUT')
-  }
-})
-
+// fb.auth().onAuthStateChanged(function (user) {
+//   console.log('onAuthStateChanged')
+//   if (user) {
+//     // User is signed in.
+//     try {
+//       //Change to AsyncStorage (and may be add await)
+//       localStorage.setItem('userId', user.uid);
+//       handleLogin(user.uid)
+//     } catch (error) {
+//       throw new Error(error);
+//     }
+//   } else {
+//     // User is signed out.
+//     console.log('SIGN OUT')
+//   }
+// })
 
 export function authActions(email, password, isLogin) {
   return async dispatch => {
-    const authData = {
-      email, password,
-      returnSecureToken: true
-    }
     if (isLogin) {
       console.log('LOGIN')
-      fb.auth().signInWithEmailAndPassword(email, password).catch(function (error) {
-        throw new Error(error);
-      });
+      return fb.auth().signInWithEmailAndPassword(email, password)
+        .then(user => {
+            console.log('user: ', user)
+            localStorage.setItem('userId', user.user.uid)
+            dispatch(handleLogin(user.user.uid))
+            db.collection('users')
+              .doc(user.user.uid)
+              .set({
+                lastLogin: firebase.firestore.Timestamp.fromDate(new Date()),
+              })
+              .then(() => console.log("Document successfully written!"))
+          }
+        )
+        .catch(error => {
+          // return error
+          throw new Error(error);
+          // console.log(error)
+        });
     } else {
       console.log('CREATE')
-      fb.auth().createUserWithEmailAndPassword(email, password).catch(function (error) {
-        throw new Error(error);
-      });
+      return fb.auth().createUserWithEmailAndPassword(email, password)
+        .then(user => {
+            localStorage.setItem('userId', user.user.uid)
+            dispatch(handleLogin(user.user.uid))
+            db.collection('users')
+              .doc(user.user.uid)
+              .set({
+                created: firebase.firestore.Timestamp.fromDate(new Date()),
+                email: user.user.email,
+                lastLogin: firebase.firestore.Timestamp.fromDate(new Date()),
+                name: user.user.displayName,
+              })
+              .then(() => console.log("Document successfully written!"))
+          }
+        )
+        .catch(function (error) {
+          throw new Error(error);
+          // console.log(error)
+        });
     }
 
   }
 }
 
 export const handleLogin = (user) => {
+  // const dispatch = useDispatch()
   console.log('handleLogin', user)
   try {
     //STORE DATA
-    // let userId = user.uid
-    // dispatch({type: AUTH_SUCCESS, userId});
+    // dispatch({type: AUTH_SUCCESS, userId: user});
     return {
       type: AUTH_SUCCESS,
       userId: user
@@ -65,15 +89,12 @@ export function handleLogout() {
   return async dispatch => {
     try {
       //REMOVE DATA
-      // localStorage.removeItem('token')
       localStorage.removeItem('userId')
 
       firebase.auth().signOut().then(function () {
         return {
           type: AUTH_LOGOUT
         }
-        // console.log('DDDD')
-        // dispatch(logoutSuccess())
       }).catch(function (error) {
         throw new Error(error);
       });

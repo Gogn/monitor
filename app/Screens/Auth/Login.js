@@ -43,9 +43,16 @@ export const Login = ({navigation}) => {
     }
   )
 
+  const [errorMessage, setErrorMessage] = useState()
+
   const loginHandler = () => {
     dispatch(authActions(state.formControls.email.value, state.formControls.password.value, true))
-    navigation.navigate('Home')
+      .then(() => navigation.navigate('Home'))
+      .catch(function (error) {
+        setErrorMessage(error.message)
+        // debugger
+        // console.log(error)
+      })
   }
 
   const validateControl = (value, validation) => {
@@ -107,12 +114,14 @@ export const Login = ({navigation}) => {
 
   return (
     <View style={styles.content}>
-
       {renderInputs()}
+
+      <Text style={{color: 'red'}}>{errorMessage}</Text>
 
       <Button
         title="Submit"
         onPress={loginHandler}
+        disabled={!state.isFormValid}
       />
 
       <Button
