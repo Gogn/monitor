@@ -34,7 +34,7 @@ export function authActions(email, password, isLogin) {
               .doc(user.user.uid)
               .set({
                 lastLogin: firebase.firestore.Timestamp.fromDate(new Date()),
-              })
+              }, { merge: true })
               .then(() => console.log("Document successfully written!"))
           }
         )
