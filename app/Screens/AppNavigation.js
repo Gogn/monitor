@@ -9,14 +9,39 @@ import {AppLoading} from "./AppLoading";
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
 import {Settings} from "./Monitor/Settings";
 import {Chart} from "./Monitor/Chart";
+// import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {Ionicons, MaterialCommunityIcons} from "react-native-vector-icons";
 
 const Tab = createBottomTabNavigator();
 function AppTabs() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Settings" component={Settings} />
-      <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Chart" component={Chart} />
+    <Tab.Navigator
+      initialRouteName="Home"
+    >
+      <Tab.Screen name="Settings" component={Settings}
+                  options={{
+                    tabBarLabel: 'Settings',
+                    tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="settings" color={color} size={size} />
+                    ),
+                  }}
+      />
+      <Tab.Screen name="Home" component={Home}
+                  options={{
+                    tabBarLabel: 'Home',
+                    tabBarIcon: ({ color, size }) => (
+                      <Ionicons name="ios-today" color={color} size={size} />
+                    ),
+                  }}
+      />
+      <Tab.Screen name="Chart" component={Chart}
+                  options={{
+                    tabBarLabel: 'Chart',
+                    tabBarIcon: ({ color, size }) => (
+                      <MaterialCommunityIcons name="chart-line" color={color} size={size} />
+                    ),
+                  }}
+      />
     </Tab.Navigator>
   );
 }
@@ -28,12 +53,16 @@ export default function AppNavigation() {
         <Stack.Navigator
           initialRouteName="Loading"
           screenOptions={{
+            // cardStyle: {
+            //   backgroundColor: 'white',
+            // }
           //   headerStyle: {
           //     backgroundColor: THEME.MAIN_COLOR
           // },
           //   headerTintColor: 'white',
           //   headerBackTitleVisible: false
           //   headerShown: false
+            gestureEnabled: false
           }}
         >
           <Stack.Screen name="Loading" component={AppLoading}/>

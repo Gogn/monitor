@@ -3,6 +3,7 @@ import {db, fb} from '../../firebase'
 import 'firebase/firestore';
 import {AUTH_LOGOUT, AUTH_SUCCESS} from "./actionTypes";
 import {useDispatch} from "react-redux";
+import {AsyncStorage} from 'react-native';
 
 // fb.auth().onAuthStateChanged(function (user) {
 //   console.log('onAuthStateChanged')
@@ -10,7 +11,7 @@ import {useDispatch} from "react-redux";
 //     // User is signed in.
 //     try {
 //       //Change to AsyncStorage (and may be add await)
-//       localStorage.setItem('userId', user.uid);
+//       AsyncStorage.setItem('userId', user.uid);
 //       handleLogin(user.uid)
 //     } catch (error) {
 //       throw new Error(error);
@@ -28,7 +29,7 @@ export function authActions(email, password, isLogin) {
       return fb.auth().signInWithEmailAndPassword(email, password)
         .then(user => {
             console.log('user: ', user)
-            localStorage.setItem('userId', user.user.uid)
+            AsyncStorage.setItem('userId', user.user.uid)
             dispatch(handleLogin(user.user.uid))
             db.collection('users')
               .doc(user.user.uid)
@@ -47,7 +48,7 @@ export function authActions(email, password, isLogin) {
       console.log('CREATE')
       return fb.auth().createUserWithEmailAndPassword(email, password)
         .then(user => {
-            localStorage.setItem('userId', user.user.uid)
+            AsyncStorage.setItem('userId', user.user.uid)
             dispatch(handleLogin(user.user.uid))
             db.collection('users')
               .doc(user.user.uid)
@@ -89,7 +90,7 @@ export function handleLogout() {
   return async dispatch => {
     try {
       //REMOVE DATA
-      localStorage.removeItem('userId')
+      AsyncStorage.removeItem('userId')
 
       firebase.auth().signOut().then(function () {
         return {

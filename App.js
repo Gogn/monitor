@@ -6,19 +6,14 @@ import authReducer from "./app/store/reducers/authReducer";
 import {Provider} from "react-redux";
 import {store} from "./app/store/store";
 import {context} from "./app/store/store";
+import {decode, encode} from 'base-64'
+
+if (!global.btoa) {  global.btoa = encode }
+if (!global.atob) { global.atob = decode }
+
+// console.disableYellowBox = true;
 
 export default function App() {
-  const [isReady, setIsReady] = useState(true)
-
-  // if (!isReady) {
-  //   return (
-  //     <AppLoading
-  //       // startAsync={bootstrap}
-  //       onFinish={() => setIsReady(true)}
-  //       onError={err => console.log(err)}
-  //     />
-  //   )
-  // }
 
   return (
     <Provider store={store}>

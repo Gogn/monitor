@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../store/actions/authActions";
 import is from 'is_js'
 import InputForm from "../../Components/UI/Input";
+import {StyledView} from "../../theme";
 
 
 export const Registration = ({navigation}) => {
@@ -146,7 +147,7 @@ export const Registration = ({navigation}) => {
   }
 
   return (
-    <View style={styles.content}>
+    <StyledView>
 
       {renderInputs()}
 
@@ -164,15 +165,7 @@ export const Registration = ({navigation}) => {
         disabled={!state.isFormValid}
       />
 
-    </View>
+    </StyledView>
 
   );
 }
-
-const styles = StyleSheet.create({
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-})

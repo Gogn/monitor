@@ -6,6 +6,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {authActions} from "../../store/actions/authActions";
 import is from 'is_js'
 import InputForm from "../../Components/UI/Input";
+import styles, {StyledView} from '../../theme'
 
 
 export const Login = ({navigation}) => {
@@ -77,8 +78,8 @@ export const Login = ({navigation}) => {
   const onChangeHandler = (event, controlName) => {
     const formControls = {...state.formControls} //Копия state
     const control = {...formControls[controlName]}
-
-    control.value = event.target.value
+    console.log(event)
+    control.value = event.nativeEvent.text
     control.touched = true
     control.valid = validateControl(control.value, control.validation)
     formControls[controlName] = control //Изменение состояния state после получений новых значений выше
@@ -113,7 +114,7 @@ export const Login = ({navigation}) => {
   }
 
   return (
-    <View style={styles.content}>
+    <StyledView>
       {renderInputs()}
 
       <Text style={{color: 'red'}}>{errorMessage}</Text>
@@ -129,12 +130,12 @@ export const Login = ({navigation}) => {
         onPress={() => navigation.navigate('Registration')}
       />
 
-    </View>
+    </StyledView>
 
   );
 }
 
-const styles = StyleSheet.create({
+const astyles = StyleSheet.create({
   content: {
     flex: 1,
     alignItems: 'center',

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {StyleSheet} from "react-native";
-import {ActivityIndicator, View, Text} from 'react-native';
+import {ActivityIndicator, View, Text, AsyncStorage} from 'react-native';
 import {AUTH_LOGOUT, AUTH_SUCCESS} from "../store/actions/actionTypes";
 import {useDispatch, useSelector} from "react-redux";
 import * as firebase from "firebase";
@@ -12,8 +12,8 @@ export const AppLoading = ({navigation}) => {
 
   // const getAuthState = () => {
   //     try {
-  //       // let token = await localStorage.getItem('token');
-  //       let user = localStorage.getItem('userId');
+  //       // let token = await AsyncStorage.getItem('token');
+  //       let user = AsyncStorage.getItem('userId');
   //       // let user = firebase.auth().currentUser;
   //       console.log('user: ', user)
   //
@@ -35,7 +35,7 @@ export const AppLoading = ({navigation}) => {
       try {
         // const {user} = getAuthState()
 // debugger
-        let user = localStorage.getItem('userId');
+        let user = AsyncStorage.getItem('userId');
         if (user) {
           //check if username exist
           let username = !!(user);
