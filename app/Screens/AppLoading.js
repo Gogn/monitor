@@ -32,31 +32,28 @@ export const AppLoading = ({navigation}) => {
   }, [store.userId]);
 
   function initialize() {
-      try {
-        // const {user} = getAuthState()
-// debugger
-        let user = AsyncStorage.getItem('userId');
-        if (user) {
-          //check if username exist
-          let username = !!(user);
 
-          if (username) {
-            console.log('initialize - username, navigate to Home')
-            navigation.navigate('Home');
-          } else {
-            console.log('initialize - username empty, navigate to Login')
-            navigation.navigate('Login', {}, StackActions.replace({routeName: "Username"}))
-          }
+    let user = async () => AsyncStorage.getItem('userId')
+    user().then(user => {
+      console.log('user: ', user)
+      if (user) {
+        //check if username exist
+        let username = !!(user);
 
+        if (username) {
+          console.log('initialize - username, navigate to Home')
+          navigation.navigate('Home');
         } else {
-          console.log('initialize - user empty, navigate to Login')
-          navigation.navigate('Login');
+          console.log('initialize - username empty, navigate to Login')
+          navigation.navigate('Login', {}, StackActions.replace({routeName: "Username"}))
         }
-      } catch (error) {
+
+      } else {
+        console.log('initialize - user empty, navigate to Login')
         navigation.navigate('Login');
-        throw new Error(error);
       }
-    }
+    })
+  }
 
   return (
     <View style={styles.center}>

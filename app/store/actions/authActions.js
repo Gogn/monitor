@@ -90,7 +90,7 @@ export function handleLogout() {
   return async dispatch => {
     try {
       //REMOVE DATA
-      AsyncStorage.removeItem('userId')
+      await AsyncStorage.removeItem('userId')
 
       firebase.auth().signOut().then(function () {
         return {

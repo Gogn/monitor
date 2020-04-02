@@ -78,7 +78,6 @@ export const Login = ({navigation}) => {
   const onChangeHandler = (event, controlName) => {
     const formControls = {...state.formControls} //Копия state
     const control = {...formControls[controlName]}
-    console.log(event)
     control.value = event.nativeEvent.text
     control.touched = true
     control.valid = validateControl(control.value, control.validation)
@@ -134,11 +133,3 @@ export const Login = ({navigation}) => {
 
   );
 }
-
-const astyles = StyleSheet.create({
-  content: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-})
