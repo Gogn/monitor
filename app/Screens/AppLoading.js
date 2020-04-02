@@ -8,23 +8,6 @@ import {handleLogin, handleLogout} from "../store/actions/authActions";
 
 export const AppLoading = ({navigation}) => {
   const store = useSelector(state => state.authReducer)
-  // const dispatch = useDispatch()
-
-  // const getAuthState = () => {
-  //     try {
-  //       // let token = await AsyncStorage.getItem('token');
-  //       let user = AsyncStorage.getItem('userId');
-  //       // let user = firebase.auth().currentUser;
-  //       console.log('user: ', user)
-  //
-  //       if (user) dispatch(handleLogin(user))
-  //       else dispatch(handleLogout());
-  //
-  //       return {user};
-  //     } catch (error) {
-  //       throw new Error(error)
-  //     }
-  // };
 
   useEffect(() => {
     console.log('useEffect')

@@ -3,7 +3,10 @@ import {db} from '../../firebase';
 import 'firebase/firestore';
 import {Text, Button} from "react-native-elements";
 import {ScrollView, View} from "react-native";
+import styled from "styled-components/native";
 import {SliderMood} from "../../Components/UI/SliderMood";
+import {StyledView} from "../../theme";
+import {TagPicker} from "../../Components/UI/TagPicker";
 
 const dataOfUser = () => {
   let user = () => {
@@ -59,25 +62,32 @@ export const Home = () => {
   return (
     <View style={{flex: 1, backgroundColor: '#fff', justifyContent: 'center'}}>
 
-      <View>
+      <StyledView>
         <Text h2>{isoDate.toISOString().slice(0, 10)}</Text>
-      </View>
+      </StyledView>
 
       <ScrollView contentContainerStyle={{
-        // flex: 1,
-        // flexGrow: 1,
         alignItems: 'center',
-        // justifyContent: 'center',
-        justifyContent: 'space-between'
-      }}>
+        justifyContent: 'space-between',
+      }}
+      >
         {renderSliders()}
 
-        <Button
-          title={'state'}
-          onPress={() => console.log(state)}
-        />
+        {/*<Button*/}
+        {/*  title={'state'}*/}
+        {/*  onPress={() => console.log(state)}*/}
+        {/*/>*/}
+
+        <TagPicker/>
 
       </ScrollView>
     </View>
   )
 }
+
+const Container = styled.View`
+flex: 1;
+align-items: center;
+justify-content: center;
+margin-top: 20px;
+`
