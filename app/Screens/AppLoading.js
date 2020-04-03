@@ -10,7 +10,7 @@ import {StyledView} from "../theme";
 
 export const AppLoading = ({navigation}) => {
   const store = useSelector(state => state.authReducer)
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     console.log('useEffect')
@@ -24,7 +24,7 @@ export const AppLoading = ({navigation}) => {
       console.log('Autologin succed, userId (Redux): ', user)
       if (user) {
           console.log('initialize - username, Ok')
-          dispatch(tagsOfUser())
+          // dispatch(tagsOfUser())
           navigation.navigate('Home');
       } else {
         console.log('initialize - user empty, navigate to Login')

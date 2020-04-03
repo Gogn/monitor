@@ -1,21 +1,38 @@
-import React, {useMemo, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {AsyncStorage, Button, Text, View} from "react-native";
 import styled from "styled-components/native";
 import {StyledView} from "../../theme";
 import {db} from "../../firebase";
-import {useSelector} from "react-redux";
-
-
+import {useDispatch, useSelector} from "react-redux";
+import {tagsOfUser} from "../../store/actions/authActions";
 
 export const TagPicker = () => {
-  const getStore = () => {
-    const store = useSelector(state => state.authReducer)
-    console.log(store)
+  const store = useSelector(state => state.authReducer)
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const getTags = async () => {
+      console.log('getTags')
+      await dispatch(tagsOfUser())
+    }
+    getTags()
+  }, [])
+
+  const renderTags =()=> {
+    console.log('renderTags')
+    // store.tags &&
+    return store.tags.map((tag, index) =>{
+      return (
+        <TagText key={index}>
+          {tag}
+        </TagText>
+      )
+    })
   }
 
   return (
     <Container>
-      <Button title={'asdasd'} onPress={getStore()}/>
+
       <InputTagView>
         <TagText>
           asdasdasd
@@ -23,21 +40,7 @@ export const TagPicker = () => {
       </InputTagView>
 
       <TagView>
-        <TagText>
-          asd
-        </TagText>
-        <TagText>
-          asd
-        </TagText>
-        <TagText>
-          asd
-        </TagText>
-        <TagText>
-          asd
-        </TagText>
-        <TagText>
-          asd
-        </TagText>
+        {renderTags()}
       </TagView>
 
     </Container>
