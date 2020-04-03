@@ -22,7 +22,7 @@ export const Registration = ({navigation}) => {
           type: 'email',
           label: 'Email',
           errorMessage: 'Введите корректный email',
-          valid: false,
+          valid: true,
           touched: false,
           validation: {
             required: true,
@@ -34,7 +34,7 @@ export const Registration = ({navigation}) => {
           type: 'password',
           label: 'Пароль',
           errorMessage: 'Введите корректный пароль',
-          valid: false,
+          valid: true,
           touched: false,
           validation: {
             required: true,
@@ -46,7 +46,7 @@ export const Registration = ({navigation}) => {
           type: 'password',
           label: 'Re-enter password',
           errorMessage: 'Введите корректный пароль',
-          valid: false,
+          valid: true,
           touched: false,
           validation: {
             required: true,
@@ -86,7 +86,6 @@ export const Registration = ({navigation}) => {
   }
 
   const validateControl = (value, validation) => {
-    console.log('validateControl')
     if (!validation) {
       console.log('noValidation')
       return true //Если параметры не были переданы - не валидировать
@@ -99,9 +98,7 @@ export const Registration = ({navigation}) => {
       isValid = is.email(value) && isValid
     }
     if (validation.minLength) {
-      console.log('minlength')
       isValid = value.length >= validation.minLength && isValid
-      console.log(isValid)
     }
 
     return isValid
@@ -111,7 +108,7 @@ export const Registration = ({navigation}) => {
     const formControls = {...state.formControls}
     const control = {...formControls[controlName]}
 
-    control.value = event && event.target.value
+    control.value = event && event.nativeEvent.text
     control.touched = true
     control.valid = validateControl(control.value, control.validation)
     formControls[controlName] = control //Изменение состояния state после получений новых значений выше

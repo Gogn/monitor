@@ -1,4 +1,4 @@
-import {AUTH_LOGOUT, AUTH_SUCCESS} from "../actions/actionTypes";
+import {AUTH_LOGOUT, AUTH_SUCCESS, USER_TAGS} from "../actions/actionTypes";
 
 const initialState = {
   userId: null
@@ -8,7 +8,6 @@ export default function authReducer(state = initialState, action) {
   switch (action.type) {
     case AUTH_SUCCESS:
       console.log('AUTH_SUCCESS')
-      console.log(action)
       return {
         ...state,
         userId: action.userId
@@ -18,6 +17,13 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         userId: null
+      }
+    case USER_TAGS:
+      console.log('USER_TAGS')
+      console.log(action)
+      return {
+        ...state,
+        tags: action.tags
       }
     default:
       return state

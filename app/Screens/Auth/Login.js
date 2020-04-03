@@ -21,7 +21,7 @@ export const Login = ({navigation}) => {
           type: 'email',
           label: 'Email',
           errorMessage: 'Введите корректный email',
-          valid: false,
+          valid: true,
           touched: false,
           validation: {
             required: true,
@@ -33,7 +33,7 @@ export const Login = ({navigation}) => {
           type: 'password',
           label: 'Пароль',
           errorMessage: 'Введите корректный пароль',
-          valid: false,
+          valid: true,
           touched: false,
           validation: {
             required: true,
@@ -47,7 +47,7 @@ export const Login = ({navigation}) => {
   const [errorMessage, setErrorMessage] = useState()
 
   const loginHandler = () => {
-    dispatch(authActions(state.formControls.email.value, state.formControls.password.value, true))
+    dispatch(authActions('asd@asd.asd', 'asdasd', true))
       .then(() => navigation.navigate('Home'))
       .catch(function (error) {
         setErrorMessage(error.message)
@@ -78,6 +78,7 @@ export const Login = ({navigation}) => {
   const onChangeHandler = (event, controlName) => {
     const formControls = {...state.formControls} //Копия state
     const control = {...formControls[controlName]}
+
     control.value = event.nativeEvent.text
     control.touched = true
     control.valid = validateControl(control.value, control.validation)
@@ -117,6 +118,11 @@ export const Login = ({navigation}) => {
       {renderInputs()}
 
       <Text style={{color: 'red'}}>{errorMessage}</Text>
+
+      <Button
+        title="Fast login asd"
+        onPress={loginHandler}
+      />
 
       <Button
         title="Submit"

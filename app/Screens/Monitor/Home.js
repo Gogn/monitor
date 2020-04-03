@@ -60,11 +60,11 @@ export const Home = () => {
   }
 
   return (
-    <View style={{flex: 1, backgroundColor: '#fff', justifyContent: 'center'}}>
+    <StyledView>
 
-      <StyledView>
+      <Container>
         <Text h2>{isoDate.toISOString().slice(0, 10)}</Text>
-      </StyledView>
+      </Container>
 
       <ScrollView contentContainerStyle={{
         alignItems: 'center',
@@ -81,12 +81,11 @@ export const Home = () => {
         <TagPicker/>
 
       </ScrollView>
-    </View>
+    </StyledView>
   )
 }
 
 const Container = styled.View`
-flex: 1;
 align-items: center;
 justify-content: center;
 margin-top: 20px;

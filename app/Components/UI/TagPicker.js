@@ -5,31 +5,22 @@ import {StyledView} from "../../theme";
 import {db} from "../../firebase";
 import {useSelector} from "react-redux";
 
-const tagsOfUser = () => {
 
-  let tags = () => {
-    let user = async () => AsyncStorage.getItem('userId')
-    user().then(userId => {
-      console.log(userId)
-      db.collection('users').doc(userId)
-        .get().then(function (doc) {
-          console.log("Document data:", doc.data().tags);
-      })
-    })
-  }
-  tags()
-}
 
 export const TagPicker = () => {
+  const getStore = () => {
+    const store = useSelector(state => state.authReducer)
+    console.log(store)
+  }
+
   return (
     <Container>
+      <Button title={'asdasd'} onPress={getStore()}/>
       <InputTagView>
         <TagText>
           asdasdasd
         </TagText>
       </InputTagView>
-
-        {tagsOfUser()}
 
       <TagView>
         <TagText>

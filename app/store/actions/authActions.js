@@ -1,9 +1,10 @@
 import firebase from "firebase";
 import {db, fb} from '../../firebase'
 import 'firebase/firestore';
-import {AUTH_LOGOUT, AUTH_SUCCESS} from "./actionTypes";
+import {AUTH_LOGOUT, AUTH_SUCCESS, USER_TAGS} from "./actionTypes";
 import {useDispatch} from "react-redux";
 import {AsyncStorage} from 'react-native';
+
 
 // fb.auth().onAuthStateChanged(function (user) {
 //   console.log('onAuthStateChanged')
@@ -28,14 +29,14 @@ export function authActions(email, password, isLogin) {
       console.log('LOGIN')
       return fb.auth().signInWithEmailAndPassword(email, password)
         .then(user => {
-            console.log('user: ', user)
+            // console.log('user: ', user)
             AsyncStorage.setItem('userId', user.user.uid)
             dispatch(handleLogin(user.user.uid))
             db.collection('users')
               .doc(user.user.uid)
               .set({
                 lastLogin: firebase.firestore.Timestamp.fromDate(new Date()),
-              }, { merge: true })
+              }, {merge: true})
               .then(() => console.log("Document successfully written!"))
           }
         )
@@ -71,11 +72,8 @@ export function authActions(email, password, isLogin) {
 }
 
 export const handleLogin = (user) => {
-  // const dispatch = useDispatch()
   console.log('handleLogin', user)
   try {
-    //STORE DATA
-    // dispatch({type: AUTH_SUCCESS, userId: user});
     return {
       type: AUTH_SUCCESS,
       userId: user
@@ -88,20 +86,28 @@ export const handleLogin = (user) => {
 export function handleLogout() {
   console.log('handleLogout')
   return async dispatch => {
-    try {
-      //REMOVE DATA
-      await AsyncStorage.removeItem('userId')
-
-      firebase.auth().signOut().then(function () {
-        return {
-          type: AUTH_LOGOUT
-        }
-      }).catch(function (error) {
-        throw new Error(error);
-      });
-    } catch (error) {
-      throw new Error(error);
-    }
+    await AsyncStorage.removeItem('userId')
+      .then(dispatch(auth_logout()))
   }
-};
+}
 
+const auth_logout = () => ({
+  type: AUTH_LOGOUT
+})
+
+export const tagsOfUser = () => {
+  return async dispatch => {
+      let userId = await AsyncStorage.getItem('userId')
+
+      db.collection('users').doc(userId)
+        .get().then(function (doc) {
+        dispatch(user_tags(doc.data().tags))
+      })
+
+  }
+}
+
+const user_tags = (tags) => ({
+  type: USER_TAGS,
+  tags: tags
+})
