@@ -1,4 +1,4 @@
-import {AUTH_LOGOUT, AUTH_SUCCESS, USER_TAGS} from "../actions/actionTypes";
+import {AUTH_LOGOUT, AUTH_SUCCESS, USER_TAGS, REMOVE_USER_TAG} from "../actions/actionTypes";
 
 const initialState = {
   userId: null,
@@ -25,6 +25,12 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         tags: action.tags
+      }
+    case REMOVE_USER_TAG:
+      console.log('REMOVE_USER_TAG')
+      return {
+        ...state,
+        tags: state.tags.filter((tag, index) => index !== action.index)
       }
     default:
       return state

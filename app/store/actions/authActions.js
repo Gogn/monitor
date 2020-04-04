@@ -1,7 +1,7 @@
 import firebase from "firebase";
 import {db, fb} from '../../firebase'
 import 'firebase/firestore';
-import {AUTH_LOGOUT, AUTH_SUCCESS, USER_TAGS} from "./actionTypes";
+import {AUTH_LOGOUT, AUTH_SUCCESS, USER_TAGS, REMOVE_USER_TAG} from "./actionTypes";
 import {useDispatch} from "react-redux";
 import {AsyncStorage} from 'react-native';
 
@@ -96,18 +96,25 @@ const auth_logout = () => ({
 })
 
 export const tagsOfUser = () => {
+  console.log('tagsOfUser')
   return async dispatch => {
       let userId = await AsyncStorage.getItem('userId')
 
-      db.collection('users').doc(userId)
+      return db.collection('users').doc(userId)
         .get().then(function (doc) {
-        dispatch(user_tags(doc.data().tags))
+        return dispatch(user_tags(doc.data().tags))
       })
 
   }
 }
 
-const user_tags = (tags) => ({
+const user_tags = (tags) => {
+  return {
   type: USER_TAGS,
   tags: tags
+}}
+
+export const remove_user_tag = (index) => ({
+  type: REMOVE_USER_TAG,
+  index: index
 })
