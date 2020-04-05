@@ -1,12 +1,13 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {AsyncStorage, Text, TouchableOpacity, View} from "react-native";
+import {AsyncStorage, TouchableOpacity, View} from "react-native";
 import styled from "styled-components/native";
 import {StyledView} from "../../theme";
 import {db} from "../../firebase";
 import {useDispatch, useSelector} from "react-redux";
 import {tagsOfUser, remove_user_tag} from "../../store/actions/authActions";
-import {Icon, Button} from "react-native-elements";
+import {Text, Button, Overlay, Input} from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import {OverlayInput} from "./OverlayInput";
 
 export const TagPicker = () => {
   const store = useSelector(state => state.authReducer)
@@ -14,7 +15,9 @@ export const TagPicker = () => {
 
   const [availableTags, setAvailableTags] = useState([])
   const [selectedTags, setSelectedTags] = useState([])
-  const [i, seti] = useState(0)
+  const [i, seti] = useState()
+  const [overlay, setOverlay] = useState(false)
+
 
   useEffect(() => {
     const getTags = async () => {
@@ -27,16 +30,13 @@ export const TagPicker = () => {
 
   useEffect(() => {
     console.log('effect of i')
-    console.log(store.tags)
     setAvailableTags(store.tags)
-    console.log(availableTags)
   }, [i])
 
 
   const renderTags = () => {
     return useMemo(() => {
       console.log('renderTags')
-      console.log('renderTags - availableTags: ',availableTags)
       return availableTags.map((tag, index) => {
         return (
           <TagText
@@ -61,8 +61,6 @@ export const TagPicker = () => {
           key={index}
           onPress={() => {
             setSelectedTags(selectedTags.filter((tag, i) => i !== index))
-            // setSelectedTags(selectedTags.slice(0, index))
-            // setSelectedTags([...selectedTags, selectedTags.slice(index + 1)])
             setAvailableTags([...availableTags, tag])
           }}
         >
@@ -72,8 +70,18 @@ export const TagPicker = () => {
     })
   }
 
+  const overlayInputHandler = (newTagInput) => {
+    setOverlay(false)
+    setSelectedTags([...selectedTags, newTagInput])
+  }
+
   return (
     <Container>
+
+      <OverlayInput
+        overlay={overlay}
+        onPress={(event) => overlayInputHandler(event)}
+      />
 
       <Button title={'store'} onPress={() => {
         console.log(store.tags)
@@ -83,7 +91,9 @@ export const TagPicker = () => {
         <TagView>
           {renderSelectedTags()}
 
-          <AddTagTO>
+          <AddTagTO onPress={() => {
+            setOverlay(true)
+          }}>
             <MaterialCommunityIcons name={'tag-plus'} size={22} color={'black'}/>
           </AddTagTO>
 
