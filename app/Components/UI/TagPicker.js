@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import {StyledView} from "../../theme";
 import {db} from "../../firebase";
 import {useDispatch, useSelector} from "react-redux";
-import {tagsOfUser, remove_user_tag} from "../../store/actions/authActions";
+import {tagsOfUser, remove_user_tag, updateTags} from "../../store/actions/appActions";
 import {Text, Button, Overlay, Input} from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {OverlayInput} from "./OverlayInput";
@@ -33,7 +33,6 @@ export const TagPicker = () => {
     setAvailableTags(store.tags)
   }, [i])
 
-
   const renderTags = () => {
     return useMemo(() => {
       console.log('renderTags')
@@ -43,9 +42,19 @@ export const TagPicker = () => {
             key={index}
             onPress={() => {
               // dispatch(remove_user_tag(index))
+              // Remove tag from available
               setAvailableTags(availableTags.filter((tag, i) => i !== index))
+              // Move tag to selected
               setSelectedTags([...selectedTags, tag])
             }}
+            onLongPress={() => {
+              // Remove tag from available
+              setAvailableTags(availableTags.filter((tag, i) => i !== index))
+              // Remove tag from store and from user DB
+              let newAvailableTags = availableTags.filter((tag, i) => i !== index)
+              dispatch(updateTags([...newAvailableTags, ...selectedTags]))
+            }
+            }
           >
             {tag}
           </TagText>
@@ -72,6 +81,7 @@ export const TagPicker = () => {
 
   const overlayInputHandler = (newTagInput) => {
     setOverlay(false)
+    dispatch(updateTags([...availableTags, ...selectedTags, newTagInput]))
     setSelectedTags([...selectedTags, newTagInput])
   }
 
@@ -83,17 +93,17 @@ export const TagPicker = () => {
         onPress={(event) => overlayInputHandler(event)}
       />
 
-      <Button title={'store'} onPress={() => {
-        console.log(store.tags)
-      }}/>
+      <Button
+        title={'store'}
+        onPress={() => { console.log(store.tags) }}
+      />
 
       <InputTagView>
         <TagView>
+
           {renderSelectedTags()}
 
-          <AddTagTO onPress={() => {
-            setOverlay(true)
-          }}>
+          <AddTagTO onPress={() => { setOverlay(true) }}>
             <MaterialCommunityIcons name={'tag-plus'} size={22} color={'black'}/>
           </AddTagTO>
 
@@ -118,7 +128,7 @@ width: 90%;
 `
 
 const InputTagView = styled.View`
-padding: 4px;
+padding: 0 5px 0 5px;
 border: 1px black;
 flex: 1;
 align-items: flex-start;
@@ -130,6 +140,7 @@ margin-bottom: 10px;
 const TagView = styled.View`
 flex: 1;
 flex-direction: row;
+flex-wrap: wrap;
 `
 
 const TagText = styled.Text`
@@ -137,7 +148,7 @@ text-align: center;
 font-size: 18px;
 background-color: lightblue;
 border-radius: 16px;
-margin-right: 10px;
+margin: 5px 5px 5px 0;
 padding: 2px 10px 2px 10px;
 `
 const AddTagTO = styled.TouchableOpacity`
@@ -147,4 +158,5 @@ background-color: lightblue;
 width: 40px;
 height: 28px;
 border-radius: 16px;
+margin: 5px 5px 5px 0;
 `

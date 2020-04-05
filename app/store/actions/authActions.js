@@ -94,27 +94,3 @@ export function handleLogout() {
 const auth_logout = () => ({
   type: AUTH_LOGOUT
 })
-
-export const tagsOfUser = () => {
-  console.log('tagsOfUser')
-  return async dispatch => {
-      let userId = await AsyncStorage.getItem('userId')
-
-      return db.collection('users').doc(userId)
-        .get().then(function (doc) {
-        return dispatch(user_tags(doc.data().tags))
-      })
-
-  }
-}
-
-const user_tags = (tags) => {
-  return {
-  type: USER_TAGS,
-  tags: tags
-}}
-
-export const remove_user_tag = (index) => ({
-  type: REMOVE_USER_TAG,
-  index: index
-})
