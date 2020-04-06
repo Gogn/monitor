@@ -20,11 +20,12 @@ export const updateTags =(tags)=>{
   return async dispatch => {
     let userId = await AsyncStorage.getItem('userId')
 
-    tags.length > 7 && tags.splice(0,1)
+    let tagsToDB = []
+    tags.length > 7 ? (tagsToDB = tags.slice(1,tags.length)) : tagsToDB = tags
 
     return db.collection('users').doc(userId)
-      .set({tags: tags}, { merge: true })
-      .then(()=>{ return dispatch(update_user_tags(tags)) })
+      .set({tags: tagsToDB}, { merge: true })
+      .then(()=>{ return dispatch(update_user_tags(tagsToDB)) })
   }
 }
 

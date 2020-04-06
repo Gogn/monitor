@@ -19,7 +19,10 @@ export const OverlayInput = ({overlay, onPress}) => {
         <View style={{marginTop: 20}}>
           <Button
             title={'Submit'}
-            onPress={() => { onPress(newTagInput) }}
+            onPress={() => {
+              onPress(newTagInput)
+              setNewTagInput()
+            }}
           />
         </View>
       </StyledView>

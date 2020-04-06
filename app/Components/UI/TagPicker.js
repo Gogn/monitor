@@ -23,13 +23,14 @@ export const TagPicker = () => {
     const getTags = async () => {
       console.log('getTags')
       await dispatch(tagsOfUser())
+      console.log('await dispatch(tagsOfUser())')
       seti(1)
     }
     getTags()
   }, [])
 
   useEffect(() => {
-    console.log('effect of i')
+    console.log('effect of i, i: ',i)
     setAvailableTags(store.tags)
   }, [i])
 
@@ -41,7 +42,6 @@ export const TagPicker = () => {
           <TagText
             key={index}
             onPress={() => {
-              // dispatch(remove_user_tag(index))
               // Remove tag from available
               setAvailableTags(availableTags.filter((tag, i) => i !== index))
               // Move tag to selected
@@ -85,17 +85,32 @@ export const TagPicker = () => {
     setSelectedTags([...selectedTags, newTagInput])
   }
 
-  return (
-    <Container>
-
+  const renderOverlay =()=>{
+    return useMemo(()=>{
+      return (
       <OverlayInput
         overlay={overlay}
         onPress={(event) => overlayInputHandler(event)}
       />
+      )
+    },[overlay])
+  }
+
+  return (
+    <Container>
+
+      {/*<OverlayInput*/}
+      {/*  overlay={overlay}*/}
+      {/*  onPress={(event) => overlayInputHandler(event)}*/}
+      {/*/>*/}
+
+      {renderOverlay()}
 
       <Button
         title={'store'}
-        onPress={() => { console.log(store.tags) }}
+        onPress={() => {
+          console.log(store.tags)
+        }}
       />
 
       <InputTagView>
@@ -103,7 +118,9 @@ export const TagPicker = () => {
 
           {renderSelectedTags()}
 
-          <AddTagTO onPress={() => { setOverlay(true) }}>
+          <AddTagTO onPress={() => {
+            setOverlay(true)
+          }}>
             <MaterialCommunityIcons name={'tag-plus'} size={22} color={'black'}/>
           </AddTagTO>
 
