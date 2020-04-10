@@ -38,7 +38,7 @@ export const Home = () => {
   )
 
   const onChangeHandler = (event, param) => {
-    console.log(param,' ',event)
+    // console.log(param,' ',event)
     // console.log(state)
     setState({...state, [param]: event})
   }

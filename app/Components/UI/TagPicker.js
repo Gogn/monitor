@@ -99,19 +99,7 @@ export const TagPicker = () => {
   return (
     <Container>
 
-      {/*<OverlayInput*/}
-      {/*  overlay={overlay}*/}
-      {/*  onPress={(event) => overlayInputHandler(event)}*/}
-      {/*/>*/}
-
       {renderOverlay()}
-
-      <Button
-        title={'store'}
-        onPress={() => {
-          console.log(store.tags)
-        }}
-      />
 
       <InputTagView>
         <TagView>
@@ -130,6 +118,13 @@ export const TagPicker = () => {
       <TagView>
         {renderTags()}
       </TagView>
+
+      <Button
+        title={'Submit'}
+        onPress={() => {
+          console.log(store.tags)
+        }}
+      />
 
     </Container>
   )
