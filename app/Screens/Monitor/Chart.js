@@ -1,107 +1,161 @@
-import {Text, View} from "react-native";
-import React, {useState} from "react";
-import {Container, StyledView} from "../../theme";
-import styled from "styled-components";
-import {
-  VictoryAxis,
-  VictoryBar,
-  VictoryBrushContainer,
-  VictoryChart,
-  VictoryLine,
-  VictoryTheme,
-  VictoryZoomContainer
-} from "victory-native";
+import React from 'react'
+import {LineChart, Grid, YAxis, XAxis} from 'react-native-svg-charts'
+import * as shape from 'd3-shape'
+import Line from 'react-native-svg'
+import {G, Rect, Circle} from 'react-native-svg'
+import {StyledView} from "../../theme";
+import {View, Text} from "react-native";
+import styled from "styled-components/native";
+import {SafeAreaConsumer, SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
+import moment from "moment";
 
 export const Chart = () => {
-  const [state, setState] = useState(
+
+  const dataa = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80]
+
+  const data = [
     {
-      zoomDomain: { x: [new Date(2008, 1, 1),new Date(2008, 8, 1)] }
-    }
+      id: 1,
+      date: new Date(2018, 0, 2, 17),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2018, 0, 3, 17),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2018, 0, 4, 17),
+      score: 1,
+    },
+
+  ];
+
+  const Tooltip = ({x, y}) => (
+    <G
+      x={x(5) - (75 / 2)}
+      key={'tooltip'}
+      onPress={() => console.log('tooltip clicked')}
+    >
+      <G y={50}>
+        <Rect
+          height={40}
+          width={75}
+          stroke={'grey'}
+          fill={'white'}
+          ry={10}
+          rx={10}
+        />
+
+      </G>
+      <G x={75 / 2}>
+        <Line
+          y1={5}
+          y2={7}
+          stroke={'grey'}
+          strokeWidth={2}
+        />
+        {/*<Circle*/}
+        {/*  cy={y(data[5])}*/}
+        {/*  r={6}*/}
+        {/*  stroke={'rgb(134, 65, 244)'}*/}
+        {/*  strokeWidth={2}*/}
+        {/*  fill={'white'}*/}
+        {/*/>*/}
+      </G>
+    </G>
   )
 
-  const handleZoom = (domain) => {
-    setState({ zoomDomain: domain });
-  }
+  const verticalContentInset = {top: 10, bottom: 10}
+  const xAxisHeight = 40
+
+  const datab = [0, 1, 2, 3]
 
   return (
-    <StyledView>
+    <SafeAreaView>
+      <Box>
 
-      <StyledView>
-        <VictoryChart width={450} height={470} scale={{x: "time"}}
-                      containerComponent={
-                        <VictoryZoomContainer
-                          zoomDimension="x"
-                          zoomDomain={state.zoomDomain}
-                          onZoomDomainChange={(domain)=>handleZoom(domain)}
-                        />
-                      }
-        >
-          <VictoryLine
-            style={{
-              data: {stroke: "tomato"}
+
+        <ChartContainer>
+
+          <YAxis
+            data={datab}
+            style={{marginBottom: xAxisHeight, marginRight: 10}}
+            contentInset={verticalContentInset}
+            svg={{fontSize: 10, fill: 'black', fontWeight: 'bold',}}
+            numberOfTicks={3}
+          />
+          <LineChart
+            style={{flex: 1}}
+            data={data}
+            contentInset={verticalContentInset}
+            yAccessor={({item}) => item.score}
+            xAccessor={({item}) => moment(item.date)}
+            numberOfTicks={3}
+            svg={{
+              stroke: 'rgb(134, 65, 244)',
+              strokeWidth: 2,
             }}
-            data={[
-              {a: new Date(2008, 1, 1), b: 125},
-              {a: new Date(2008, 2, 1), b: 257},
-              {a: new Date(2008, 3, 1), b: 345},
-              {a: new Date(2008, 4, 1), b: 515},
-              {a: new Date(2008, 5, 1), b: 132},
-              {a: new Date(2008, 6, 1), b: 305},
-              {a: new Date(2008, 7, 1), b: 270},
-              {a: new Date(2008, 8, 1), b: 470}
-            ]}
-            x="a"
-            y="b"
-          />
+            // xMin={10}
+          >
+            <Grid/>
+            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
+              {/*<Tooltip/>*/}
+              <View style={{width: '90%', alignSelf: 'flex-end'}}>
+                <XAxis
+                  style={{marginHorizontal: -10, height: xAxisHeight}}
+                  data={data}
+                  xAccessor={({item}) => item.date}
+                  formatLabel={value => moment(value).format("DD-MM-YYYY")}
+                  contentInset={{left: 30, right: 30}}
+                  svg={{
+                    fontSize: 10,
+                    fill: 'black',
+                    fontWeight: 'bold',
+                    rotation: 20,
+                    originY: 15,
+                    y: 15
+                  }}
+                />
+              </View>
+            </View>
+          </LineChart>
 
-        </VictoryChart>
-        <VictoryChart
-          padding={{top: 0, left: 50, right: 50, bottom: 30}}
-          width={450} height={100} scale={{x: "time"}}
-          containerComponent={
-            <VictoryBrushContainer
-              brushDimension="x"
-              brushDomain={state.zoomDomain}
-              onBrushDomainChange={(domain,props)=>handleZoom(domain)}
-              // onBrushDomainChangeEnd={(domain)=>handleZoom(domain)}
-            />
-          }
-        >
-          <VictoryAxis
-            tickFormat={(x) => new Date(x).getMonth()}
-          />
-          <VictoryLine
-            style={{
-              data: {stroke: "tomato"}
-            }}
-            data={[
-              {key: new Date(2008, 1, 1), b: 125},
-              {key: new Date(2008, 2, 1), b: 257},
-              {key: new Date(2008, 3, 1), b: 345},
-              {key: new Date(2008, 4, 1), b: 515},
-              {key: new Date(2008, 5, 1), b: 132},
-              {key: new Date(2008, 6, 1), b: 305},
-              {key: new Date(2008, 7, 1), b: 270},
-              {key: new Date(2008, 8, 1), b: 470}
-            ]}
-            x="key"
-            y="b"
-          />
-        </VictoryChart>
-      </StyledView>
+        </ChartContainer>
 
-      <View style={{flex: 0.3}}>
-        <Text>asdasdasd</Text>
-      </View>
 
-    </StyledView>
+        <Container>
+          <Text>asdasdasd</Text>
+        </Container>
+
+      </Box>
+    </SafeAreaView>
   )
 }
 
-const StyledView1 = styled(StyledView)`
+
+const Box = styled.View`
+height: 100%;
+width: 100%;
+margin-top: 15px;
+align-items: center;
+justify-content: center;
+`
+
+const ChartContainer = styled.View`
+width: 90%;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+flex: 0.5;
+`
+
+const Container = styled.View`
+width: 90%;
+flex-direction: row;
+align-items: center;
+justify-content: center;
 flex: 1;
 `
 
-const StyledView2 = styled(StyledView)`
-flex: 1;
-`
