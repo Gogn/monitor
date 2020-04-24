@@ -18,7 +18,7 @@ const Tab = createBottomTabNavigator();
 function AppTabs() {
   return (
     <Tab.Navigator
-      initialRouteName="Home"
+      initialRouteName="Chart"
     >
       <Tab.Screen name="Settings" component={Settings}
                   options={{
