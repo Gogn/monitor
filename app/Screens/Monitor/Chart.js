@@ -191,7 +191,7 @@ export const Chart = () => {
           <LineChart
             style={{flex: 1}}
             data={data}
-            contentInset={{top: 10, bottom: 10, left: 10, right: 10}}
+            contentInset={{top: 0, bottom: 1, left: 1, right: 2}}
             yAccessor={({item}) => item.score}
             xAccessor={({item}) => item.date}
             numberOfTicks={10}
@@ -203,32 +203,31 @@ export const Chart = () => {
             // xMin={10}
           >
             <CustomGrid/>
-            <View style={{flexDirection: 'row', alignItems: 'center', justifyContent: 'center'}}>
-              {/*<Tooltip/>*/}
-              <View style={{width: '100%', alignSelf: 'flex-end'}}>
-                <XAxis
-                  // style={{marginHorizontal: -10, height: xAxisHeight}}
-                  data={dataMood}
-                  xAccessor={({item}) => item.date}
-                  formatLabel={value => moment(value).format("DD-MM-YYYY")}
-                  // contentInset={{left: 30, right: 30}}
-                  scale={scale.scaleTime}
-                  numberOfTicks={5}
-                  svg={{
-                    fontSize: 10,
-                    fill: 'black',
-                    fontWeight: 'bold',
-                    rotation: 0,
-                    originY: 0,
-                    y: 0
-                  }}
-                />
-              </View>
-            </View>
+
+
           </LineChart>
 
         </ChartContainer>
-
+        <View style={{  width: '100%', alignSelf: 'flex-end'}}>
+          {/*<Tooltip/>*/}
+          <XAxis
+            style={{marginHorizontal: 10, height: 30, backgroundColor: "transparent"}}
+            data={dataMood}
+            xAccessor={({item}) => item.date}
+            formatLabel={value => moment(value).format("DD-MM-YYYY")}
+            contentInset={{left: 10, right: 30}}
+            scale={scale.scaleTime}
+            // numberOfTicks={10}
+            svg={{
+              fontSize: 10,
+              fill: 'black',
+              fontWeight: 'bold',
+              rotation: 20,
+              originY: 60,
+              y: 5
+            }}
+          />
+        </View>
 
         <Container>
           <Text>asdasdasd</Text>
