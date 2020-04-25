@@ -11,6 +11,8 @@ import {Settings} from "./Monitor/Settings";
 import {Chart} from "./Monitor/Chart";
 // import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {Ionicons, MaterialCommunityIcons} from "react-native-vector-icons";
+import { enableScreens } from 'react-native-screens';
+enableScreens();
 
 const Tab = createBottomTabNavigator();
 function AppTabs() {
