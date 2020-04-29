@@ -1,9 +1,5 @@
-const test = () => {
-  console.log('test')
-  test1 = async () => {
-    console.log('test1')
-  }
-  test1()
-}
+const moment = require('moment')
 
-test()
+const date = Date.now()
+
+console.log(date)

@@ -8,9 +8,14 @@ import {Provider} from "react-redux";
 import {store} from "./app/store/store";
 import {context} from "./app/store/store";
 import {decode, encode} from 'base-64'
+import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 
-if (!global.btoa) {  global.btoa = encode }
-if (!global.atob) { global.atob = decode }
+if (!global.btoa) {
+  global.btoa = encode
+}
+if (!global.atob) {
+  global.atob = decode
+}
 
 export default function App() {
   const _setTimeout = global.setTimeout;
@@ -60,7 +65,9 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <AppNavigation/>
+      <SafeAreaProvider>
+        <AppNavigation/>
+      </SafeAreaProvider>
     </Provider>
   )
 }
