@@ -423,18 +423,13 @@ export const Chart = () => {
             <VictoryChart width={450} height={400} scale={{x: "time"}}
                           theme={VictoryTheme.material}
                           containerComponent={
-                            <VictoryZoomVoronoiContainer
-                              zoomDimension="x"
-                              zoomDomain={state.zoomDomain}
-                              onZoomDomainChange={(domain) => handleZoom(domain)}
-                              labels={({datum}) => `y: ${datum.score}`}
-                              labelComponent={<VictoryTooltip cornerRadius={15}
-                                                              flyoutStyle={{fill: "white"}}/>}
-                              events={{
-                                onPressOut: (evt) => console.log('123123')
-                              }}
-                            />
-                          }
+                <VictoryZoomContainer
+                  // disableContainerEvents
+                  zoomDimension="x"
+                  zoomDomain={state.zoomDomain}
+                  onZoomDomainChange={(domain) => handleZoom(domain)}
+                />
+              }
 
             >
               <VictoryLine
@@ -442,91 +437,42 @@ export const Chart = () => {
                 data={dataMood}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                dataComponent={<Curve events={{
-                  onPressIn: (evt) => console.log('VictoryLine')
-                }}/>}
               />
               <VictoryLine
                 style={{data: {stroke: "black", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood2}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                // dataComponent={<Curve events={{
-                //   onPressIn: (evt) => console.log('VictoryLine')
-                // }}/>}
               />
               <VictoryLine
                 style={{data: {stroke: "blue", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood3}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                // dataComponent={<Curve events={{
-                //   onPressIn: (evt) => console.log('VictoryLine')
-                // }}/>}
               />
               <VictoryLine
                 style={{data: {stroke: "cyan", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood4}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                // dataComponent={<Curve events={{
-                //   onPressIn: (evt) => console.log('VictoryLine')
-                // }}/>}
               />
               <VictoryLine
                 style={{data: {stroke: "red", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood5}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                // dataComponent={<Curve events={{
-                //   onPressIn: (evt) => console.log('VictoryLine')
-                // }}/>}
               />
               <VictoryLine
                 style={{data: {stroke: "yellow", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood6}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                // dataComponent={<Curve events={{
-                //   onPressIn: (evt) => console.log('VictoryLine')
-                // }}/>}
               />
               <VictoryLine
                 style={{data: {stroke: "green", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood7}
                 x="date"
                 y="score"
-                animate={{
-                  duration: 1000,
-                  onLoad: {duration: 1000}
-                }}
-                // dataComponent={<Curve events={{
-                //   onPressIn: (evt) => console.log('VictoryLine')
-                // }}/>}
               />
 
               <VictoryAxis
