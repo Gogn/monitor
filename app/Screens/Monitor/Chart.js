@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import {Container, StyledView} from "../../theme";
 import styled from "styled-components";
 import {
+  createContainer,
   Curve, LineSegment,
   VictoryAxis,
   VictoryBar,
@@ -70,6 +71,318 @@ export const Chart = () => {
       score: 8,
     },
   ];
+  const dataMood2 = [
+    {
+      id: 1,
+      date: new Date(2020, 1, 2),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2020, 5, 3),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2020, 7, 4),
+      score: 1,
+    },
+    {
+      id: 4,
+      date: new Date(2020, 8, 5),
+      score: 0,
+    },
+    {
+      id: 5,
+      date: new Date(2020, 1, 6),
+      score: 2,
+    },
+    {
+      id: 6,
+      date: new Date(2020, 5, 7),
+      score: 5,
+    },
+    {
+      id: 7,
+      date: new Date(2020, 3, 8),
+      score: 1,
+    },
+    {
+      id: 8,
+      date: new Date(2020, 2, 9),
+      score: 10,
+    },
+    {
+      id: 9,
+      date: new Date(2020, 1, 10),
+      score: 2,
+    },
+    {
+      id: 10,
+      date: new Date(2020, 7, 11),
+      score: 8,
+    },
+  ];
+  const dataMood3 = [
+    {
+      id: 1,
+      date: new Date(2020, 8, 2),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2020, 9, 3),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2020, 1, 4),
+      score: 1,
+    },
+    {
+      id: 4,
+      date: new Date(2020, 2, 5),
+      score: 0,
+    },
+    {
+      id: 5,
+      date: new Date(2020, 3, 6),
+      score: 2,
+    },
+    {
+      id: 6,
+      date: new Date(2020, 1, 7),
+      score: 5,
+    },
+    {
+      id: 7,
+      date: new Date(2020, 5, 8),
+      score: 1,
+    },
+    {
+      id: 8,
+      date: new Date(2020, 7, 9),
+      score: 10,
+    },
+    {
+      id: 9,
+      date: new Date(2020, 6, 10),
+      score: 2,
+    },
+    {
+      id: 10,
+      date: new Date(2020, 4, 11),
+      score: 8,
+    },
+  ];
+  const dataMood4 = [
+    {
+      id: 1,
+      date: new Date(2020, 4, 2),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2020, 5, 3),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2020, 6, 4),
+      score: 1,
+    },
+    {
+      id: 4,
+      date: new Date(2020, 5, 5),
+      score: 0,
+    },
+    {
+      id: 5,
+      date: new Date(2020, 4, 6),
+      score: 2,
+    },
+    {
+      id: 6,
+      date: new Date(2020, 5, 7),
+      score: 5,
+    },
+    {
+      id: 7,
+      date: new Date(2020, 6, 8),
+      score: 1,
+    },
+    {
+      id: 8,
+      date: new Date(2020, 5, 9),
+      score: 10,
+    },
+    {
+      id: 9,
+      date: new Date(2020, 3, 10),
+      score: 2,
+    },
+    {
+      id: 10,
+      date: new Date(2020, 4, 11),
+      score: 8,
+    },
+  ];
+  const dataMood5 = [
+    {
+      id: 1,
+      date: new Date(2020, 1, 2),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2020, 2, 3),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2020, 3, 4),
+      score: 1,
+    },
+    {
+      id: 4,
+      date: new Date(2020, 2, 5),
+      score: 0,
+    },
+    {
+      id: 5,
+      date: new Date(2020, 1, 6),
+      score: 2,
+    },
+    {
+      id: 6,
+      date: new Date(2020, 2, 7),
+      score: 5,
+    },
+    {
+      id: 7,
+      date: new Date(2020, 3, 8),
+      score: 1,
+    },
+    {
+      id: 8,
+      date: new Date(2020, 2, 9),
+      score: 10,
+    },
+    {
+      id: 9,
+      date: new Date(2020, 1, 10),
+      score: 2,
+    },
+    {
+      id: 10,
+      date: new Date(2020, 3, 11),
+      score: 8,
+    },
+  ];
+  const dataMood6 = [
+    {
+      id: 1,
+      date: new Date(2020, 7, 2),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2020, 8, 3),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2020, 9, 4),
+      score: 1,
+    },
+    {
+      id: 4,
+      date: new Date(2020, 8, 5),
+      score: 0,
+    },
+    {
+      id: 5,
+      date: new Date(2020, 7, 6),
+      score: 2,
+    },
+    {
+      id: 6,
+      date: new Date(2020, 8, 7),
+      score: 5,
+    },
+    {
+      id: 7,
+      date: new Date(2020, 9, 8),
+      score: 1,
+    },
+    {
+      id: 8,
+      date: new Date(2020, 3, 9),
+      score: 10,
+    },
+    {
+      id: 9,
+      date: new Date(2020, 8, 10),
+      score: 2,
+    },
+    {
+      id: 10,
+      date: new Date(2020, 7, 11),
+      score: 8,
+    },
+  ];
+  const dataMood7 = [
+    {
+      id: 1,
+      date: new Date(2020, 7, 2),
+      score: 0,
+    },
+    {
+      id: 2,
+      date: new Date(2020, 4, 3),
+      score: 3,
+    },
+    {
+      id: 3,
+      date: new Date(2020, 1, 4),
+      score: 1,
+    },
+    {
+      id: 4,
+      date: new Date(2020, 2, 5),
+      score: 0,
+    },
+    {
+      id: 5,
+      date: new Date(2020, 1, 6),
+      score: 2,
+    },
+    {
+      id: 6,
+      date: new Date(2020, 4, 7),
+      score: 5,
+    },
+    {
+      id: 7,
+      date: new Date(2020, 7, 8),
+      score: 1,
+    },
+    {
+      id: 8,
+      date: new Date(2020, 4, 9),
+      score: 10,
+    },
+    {
+      id: 9,
+      date: new Date(2020, 1, 10),
+      score: 2,
+    },
+    {
+      id: 10,
+      date: new Date(2020, 4, 11),
+      score: 8,
+    },
+  ];
 
   const dataAnxiety = [
     {
@@ -91,13 +404,15 @@ export const Chart = () => {
 
   const [state, setState] = useState(
     {
-      zoomDomain: {x: [new Date(2020, 3, 1), Date.now()]}
+      zoomDomain: {x: [new Date(2020, 3, 2), Date.now()]}
     }
   )
 
   const handleZoom = (domain) => {
     setState({zoomDomain: domain});
   }
+
+  const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -107,19 +422,102 @@ export const Chart = () => {
           <Svg>
             <VictoryChart width={450} height={400} scale={{x: "time"}}
                           theme={VictoryTheme.material}
-                          containerComponent={ <VictoryVoronoiContainer
-                              voronoiDimension="x"
+                          containerComponent={
+                            <VictoryZoomVoronoiContainer
+                              zoomDimension="x"
+                              zoomDomain={state.zoomDomain}
+                              onZoomDomainChange={(domain) => handleZoom(domain)}
                               labels={({datum}) => `y: ${datum.score}`}
                               labelComponent={<VictoryTooltip cornerRadius={15}
                                                               flyoutStyle={{fill: "white"}}/>}
                               events={{
                                 onPressOut: (evt) => console.log('123123')
                               }}
-                            /> }
+                            />
+                          }
+
             >
               <VictoryLine
                 style={{data: {stroke: "tomato", strokeWidth: 4}, labels: {fill: "tomato"}}}
                 data={dataMood}
+                x="date"
+                y="score"
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 1000}
+                }}
+                dataComponent={<Curve events={{
+                  onPressIn: (evt) => console.log('VictoryLine')
+                }}/>}
+              />
+              <VictoryLine
+                style={{data: {stroke: "black", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                data={dataMood2}
+                x="date"
+                y="score"
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 1000}
+                }}
+                // dataComponent={<Curve events={{
+                //   onPressIn: (evt) => console.log('VictoryLine')
+                // }}/>}
+              />
+              <VictoryLine
+                style={{data: {stroke: "blue", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                data={dataMood3}
+                x="date"
+                y="score"
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 1000}
+                }}
+                // dataComponent={<Curve events={{
+                //   onPressIn: (evt) => console.log('VictoryLine')
+                // }}/>}
+              />
+              <VictoryLine
+                style={{data: {stroke: "cyan", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                data={dataMood4}
+                x="date"
+                y="score"
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 1000}
+                }}
+                // dataComponent={<Curve events={{
+                //   onPressIn: (evt) => console.log('VictoryLine')
+                // }}/>}
+              />
+              <VictoryLine
+                style={{data: {stroke: "red", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                data={dataMood5}
+                x="date"
+                y="score"
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 1000}
+                }}
+                // dataComponent={<Curve events={{
+                //   onPressIn: (evt) => console.log('VictoryLine')
+                // }}/>}
+              />
+              <VictoryLine
+                style={{data: {stroke: "yellow", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                data={dataMood6}
+                x="date"
+                y="score"
+                animate={{
+                  duration: 1000,
+                  onLoad: {duration: 1000}
+                }}
+                // dataComponent={<Curve events={{
+                //   onPressIn: (evt) => console.log('VictoryLine')
+                // }}/>}
+              />
+              <VictoryLine
+                style={{data: {stroke: "green", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                data={dataMood7}
                 x="date"
                 y="score"
                 animate={{
@@ -131,25 +529,28 @@ export const Chart = () => {
                 // }}/>}
               />
 
-              {/*<VictoryAxis*/}
-              {/*  axisComponent={<LineSegment*/}
-              {/*    style={{*/}
-              {/*    stroke: 'red',*/}
-              {/*    strokeWidth: 10,*/}
-              {/*  }}*/}
-              {/*    events={{*/}
-              {/*      target: 'tickLabels',*/}
-              {/*      onPressIn: (evt) => console.log('VictoryAxis') }}/>}*/}
-              {/*  style={{ tickLabels: { fill: "cyan" } }}*/}
-              {/*/>*/}
-              {/*<VictoryAxis dependentAxis*/}
-              {/*             axisComponent={<LineSegment*/}
-              {/*               style={{*/}
-              {/*                 stroke: 'black',*/}
-              {/*                 strokeWidth: 10*/}
-              {/*               }}*/}
-              {/*               events={{ onPressIn: (evt) => console.log('evt') }}/>}*/}
-              {/*/>*/}
+              <VictoryAxis
+                axisComponent={<LineSegment
+                  style={{
+                  stroke: 'red',
+                  strokeWidth: 10,
+                }}
+                 />}
+                tickLabelComponent={<VictoryLabel dy={0}
+                                                  style={{ color: "cyan", stroke: 'black', strokeWidth: '20px', strokeOpacity: '0.05'}}
+                                                  events={{
+                                                    target: 'tickLabels',
+                                                    onPressIn: (evt) => console.log('tickLabelComponent') }}
+                />}
+              />
+              <VictoryAxis dependentAxis
+                           axisComponent={<LineSegment
+                             style={{
+                               stroke: 'black',
+                               strokeWidth: 10
+                             }}
+                             events={{ onPressIn: (evt) => console.log('evt') }}/>}
+              />
 
             </VictoryChart>
           </Svg>
@@ -171,11 +572,90 @@ export const Chart = () => {
               })}
               tickFormat={(x) => new Date(x).getDate()}
             />
+
             <VictoryLine
               style={{data: {stroke: "tomato"}}}
               data={dataMood}
               x="date"
               y="score"
+            />
+            <VictoryLine
+              style={{data: {stroke: "black", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              data={dataMood2}
+              x="date"
+              y="score"
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 1000}
+              }}
+              // dataComponent={<Curve events={{
+              //   onPressIn: (evt) => console.log('VictoryLine')
+              // }}/>}
+            />
+            <VictoryLine
+              style={{data: {stroke: "blue", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              data={dataMood3}
+              x="date"
+              y="score"
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 1000}
+              }}
+              // dataComponent={<Curve events={{
+              //   onPressIn: (evt) => console.log('VictoryLine')
+              // }}/>}
+            />
+            <VictoryLine
+              style={{data: {stroke: "cyan", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              data={dataMood4}
+              x="date"
+              y="score"
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 1000}
+              }}
+              // dataComponent={<Curve events={{
+              //   onPressIn: (evt) => console.log('VictoryLine')
+              // }}/>}
+            />
+            <VictoryLine
+              style={{data: {stroke: "red", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              data={dataMood5}
+              x="date"
+              y="score"
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 1000}
+              }}
+              // dataComponent={<Curve events={{
+              //   onPressIn: (evt) => console.log('VictoryLine')
+              // }}/>}
+            />
+            <VictoryLine
+              style={{data: {stroke: "yellow", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              data={dataMood6}
+              x="date"
+              y="score"
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 1000}
+              }}
+              // dataComponent={<Curve events={{
+              //   onPressIn: (evt) => console.log('VictoryLine')
+              // }}/>}
+            />
+            <VictoryLine
+              style={{data: {stroke: "green", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              data={dataMood7}
+              x="date"
+              y="score"
+              animate={{
+                duration: 1000,
+                onLoad: {duration: 1000}
+              }}
+              // dataComponent={<Curve events={{
+              //   onPressIn: (evt) => console.log('VictoryLine')
+              // }}/>}
             />
           </VictoryChart>
         </StyledView>
