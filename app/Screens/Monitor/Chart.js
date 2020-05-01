@@ -404,15 +404,13 @@ export const Chart = () => {
 
   const [state, setState] = useState(
     {
-      zoomDomain: {x: [new Date(2020, 3, 2), Date.now()]}
+      zoomDomain: {x: [new Date(2020, 0, 2), Date.now()]}
     }
   )
 
   const handleZoom = (domain) => {
     setState({zoomDomain: domain});
   }
-
-  const VictoryZoomVoronoiContainer = createContainer("zoom", "voronoi");
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -423,79 +421,70 @@ export const Chart = () => {
             <VictoryChart width={450} height={400} scale={{x: "time"}}
                           theme={VictoryTheme.material}
                           containerComponent={
-                <VictoryZoomContainer
-                  // disableContainerEvents
-                  zoomDimension="x"
-                  zoomDomain={state.zoomDomain}
-                  onZoomDomainChange={(domain) => handleZoom(domain)}
-                />
-              }
+                            <VictoryZoomContainer
+                              // disableContainerEvents
+                              zoomDimension="x"
+                              zoomDomain={state.zoomDomain}
+                              onZoomDomainChange={(domain) => handleZoom(domain)}
+                            />
+                          }
 
             >
+
               <VictoryLine
-                style={{data: {stroke: "tomato", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "tomato", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood}
                 x="date"
                 y="score"
               />
               <VictoryLine
-                style={{data: {stroke: "black", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "black", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood2}
                 x="date"
                 y="score"
               />
               <VictoryLine
-                style={{data: {stroke: "blue", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "blue", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood3}
                 x="date"
                 y="score"
               />
               <VictoryLine
-                style={{data: {stroke: "cyan", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "cyan", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood4}
                 x="date"
                 y="score"
               />
               <VictoryLine
-                style={{data: {stroke: "red", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "red", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood5}
                 x="date"
                 y="score"
               />
               <VictoryLine
-                style={{data: {stroke: "yellow", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "yellow", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood6}
                 x="date"
                 y="score"
               />
               <VictoryLine
-                style={{data: {stroke: "green", strokeWidth: 4}, labels: {fill: "tomato"}}}
+                style={{data: {stroke: "green", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={dataMood7}
                 x="date"
                 y="score"
               />
 
               <VictoryAxis
-                axisComponent={<LineSegment
-                  style={{
-                  stroke: 'red',
-                  strokeWidth: 10,
-                }}
-                 />}
-                tickLabelComponent={<VictoryLabel dy={0}
-                                                  style={{ color: "cyan", stroke: 'black', strokeWidth: '20px', strokeOpacity: '0.05'}}
-                                                  events={{
-                                                    target: 'tickLabels',
-                                                    onPressIn: (evt) => console.log('tickLabelComponent') }}
-                />}
+                tickLabelComponent={
+                  <VictoryLabel dy={0}
+                                style={{color: "cyan", stroke: 'black', strokeWidth: '10px', strokeOpacity: '0.05'}}
+                                events={{ target: 'tickLabels',
+                                  onPressIn: (evt) => console.log('tickLabelComponent') }}
+                  />}
               />
-              <VictoryAxis dependentAxis
-                           axisComponent={<LineSegment
-                             style={{
-                               stroke: 'black',
-                               strokeWidth: 10
-                             }}
-                             events={{ onPressIn: (evt) => console.log('evt') }}/>}
+              <VictoryAxis
+                dependentAxis
+                tickCount={10}
               />
 
             </VictoryChart>
@@ -503,112 +492,80 @@ export const Chart = () => {
           <VictoryChart
             padding={{top: 0, left: 50, right: 50, bottom: 30}}
             width={450} height={100} scale={{x: "time"}}
+            theme={VictoryTheme.material}
             containerComponent={
               <VictoryBrushContainer
                 brushDimension="x"
                 brushDomain={state.zoomDomain}
-                // onBrushDomainChange={(domain,props)=>handleZoom(domain)}
                 onBrushDomainChangeEnd={(domain) => handleZoom(domain)}
               />
             }
           >
             <VictoryAxis
-              tickValues={dataMood.map((p) => {
-                return p.date
-              })}
-              tickFormat={(x) => new Date(x).getDate()}
+              // tickValues={dataMood.map((p) => {
+              //   return p.date
+              // })}
+              // tickFormat={(x) => new Date(x).getDate()}
+              // domain={{x: [new Date(2020, 0, 2), Date.now()]}}
+              // domainPadding={{x: 50}}
+              // fixLabelOverlap={true}
+              style={{
+                // axis: {stroke: "#756f6a"},
+                axisLabel: {fontSize: 20, padding: 30},
+                // grid: {stroke: ({ tick }) => tick > 0.5 ? "red" : "grey"},
+                // ticks: {stroke: "grey", size: 5},
+                tickLabels: {fontSize: 10, padding: 5}
+              }}
             />
 
             <VictoryLine
-              style={{data: {stroke: "tomato"}}}
+              style={{data: {stroke: "tomato", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood}
               x="date"
               y="score"
             />
             <VictoryLine
-              style={{data: {stroke: "black", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              style={{data: {stroke: "black", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood2}
               x="date"
               y="score"
-              animate={{
-                duration: 1000,
-                onLoad: {duration: 1000}
-              }}
-              // dataComponent={<Curve events={{
-              //   onPressIn: (evt) => console.log('VictoryLine')
-              // }}/>}
             />
             <VictoryLine
-              style={{data: {stroke: "blue", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              style={{data: {stroke: "blue", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood3}
               x="date"
               y="score"
-              animate={{
-                duration: 1000,
-                onLoad: {duration: 1000}
-              }}
-              // dataComponent={<Curve events={{
-              //   onPressIn: (evt) => console.log('VictoryLine')
-              // }}/>}
             />
             <VictoryLine
-              style={{data: {stroke: "cyan", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              style={{data: {stroke: "cyan", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood4}
               x="date"
               y="score"
-              animate={{
-                duration: 1000,
-                onLoad: {duration: 1000}
-              }}
-              // dataComponent={<Curve events={{
-              //   onPressIn: (evt) => console.log('VictoryLine')
-              // }}/>}
             />
             <VictoryLine
-              style={{data: {stroke: "red", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              style={{data: {stroke: "red", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood5}
               x="date"
               y="score"
-              animate={{
-                duration: 1000,
-                onLoad: {duration: 1000}
-              }}
-              // dataComponent={<Curve events={{
-              //   onPressIn: (evt) => console.log('VictoryLine')
-              // }}/>}
             />
             <VictoryLine
-              style={{data: {stroke: "yellow", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              style={{data: {stroke: "yellow", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood6}
               x="date"
               y="score"
-              animate={{
-                duration: 1000,
-                onLoad: {duration: 1000}
-              }}
-              // dataComponent={<Curve events={{
-              //   onPressIn: (evt) => console.log('VictoryLine')
-              // }}/>}
             />
             <VictoryLine
-              style={{data: {stroke: "green", strokeWidth: 4}, labels: {fill: "tomato"}}}
+              style={{data: {stroke: "green", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood7}
               x="date"
               y="score"
-              animate={{
-                duration: 1000,
-                onLoad: {duration: 1000}
-              }}
-              // dataComponent={<Curve events={{
-              //   onPressIn: (evt) => console.log('VictoryLine')
-              // }}/>}
             />
           </VictoryChart>
         </StyledView>
 
-        <View style={{flex: 0.3}}>
-          <Text>asdasdasd</Text>
-        </View>
+        {/*<View style={{flex: 0.2}}>*/}
+        {/*  <Text>asdasdasd</Text>*/}
+        {/*</View>*/}
 
       </StyledView>
     </SafeAreaView>
