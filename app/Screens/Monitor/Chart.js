@@ -1,5 +1,5 @@
 import {Text, View} from "react-native";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Container, StyledView} from "../../theme";
 import styled from "styled-components";
 import {
@@ -16,6 +16,7 @@ import {
 import {SafeAreaView} from "react-native-safe-area-context";
 import moment from "moment";
 import Svg from "react-native-svg";
+import _ from 'lodash';
 
 export const Chart = () => {
 
@@ -23,408 +24,173 @@ export const Chart = () => {
     {
       id: 1,
       date: new Date(2020, 3, 2),
-      score: 0,
+      mood: 0,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 2,
       date: new Date(2020, 3, 3),
-      score: 3,
+      mood: 3,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 3,
       date: new Date(2020, 3, 4),
-      score: 1,
+      mood: 1,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 4,
       date: new Date(2020, 3, 5),
-      score: 0,
+      mood: 0,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 5,
       date: new Date(2020, 3, 6),
-      score: 2,
+      mood: 2,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 6,
       date: new Date(2020, 3, 7),
-      score: 5,
+      mood: 5,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 7,
       date: new Date(2020, 3, 8),
-      score: 1,
+      mood: 1,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 8,
       date: new Date(2020, 3, 9),
-      score: 10,
+      mood: 10,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 9,
       date: new Date(2020, 3, 10),
-      score: 2,
+      mood: 2,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
       id: 10,
       date: new Date(2020, 3, 11),
-      score: 8,
-    },
-  ];
-  const dataMood2 = [
-    {
-      id: 1,
-      date: new Date(2020, 1, 2),
-      score: 0,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 5, 3),
-      score: 3,
+      mood: 8,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
     {
-      id: 3,
-      date: new Date(2020, 7, 4),
-      score: 1,
-    },
-    {
-      id: 4,
-      date: new Date(2020, 8, 5),
-      score: 0,
-    },
-    {
-      id: 5,
-      date: new Date(2020, 1, 6),
-      score: 2,
-    },
-    {
-      id: 6,
-      date: new Date(2020, 5, 7),
-      score: 5,
-    },
-    {
-      id: 7,
-      date: new Date(2020, 3, 8),
-      score: 1,
-    },
-    {
-      id: 8,
-      date: new Date(2020, 2, 9),
-      score: 10,
-    },
-    {
-      id: 9,
-      date: new Date(2020, 1, 10),
-      score: 2,
-    },
-    {
-      id: 10,
-      date: new Date(2020, 7, 11),
-      score: 8,
-    },
-  ];
-  const dataMood3 = [
-    {
-      id: 1,
-      date: new Date(2020, 8, 2),
-      score: 0,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 9, 3),
-      score: 3,
-    },
-    {
-      id: 3,
-      date: new Date(2020, 1, 4),
-      score: 1,
-    },
-    {
-      id: 4,
-      date: new Date(2020, 2, 5),
-      score: 0,
-    },
-    {
-      id: 5,
-      date: new Date(2020, 3, 6),
-      score: 2,
-    },
-    {
-      id: 6,
-      date: new Date(2020, 1, 7),
-      score: 5,
-    },
-    {
-      id: 7,
-      date: new Date(2020, 5, 8),
-      score: 1,
-    },
-    {
-      id: 8,
-      date: new Date(2020, 7, 9),
-      score: 10,
-    },
-    {
-      id: 9,
-      date: new Date(2020, 6, 10),
-      score: 2,
-    },
-    {
-      id: 10,
-      date: new Date(2020, 4, 11),
-      score: 8,
-    },
-  ];
-  const dataMood4 = [
-    {
-      id: 1,
-      date: new Date(2020, 4, 2),
-      score: 0,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 5, 3),
-      score: 3,
-    },
-    {
-      id: 3,
-      date: new Date(2020, 6, 4),
-      score: 1,
-    },
-    {
-      id: 4,
-      date: new Date(2020, 5, 5),
-      score: 0,
-    },
-    {
-      id: 5,
-      date: new Date(2020, 4, 6),
-      score: 2,
-    },
-    {
-      id: 6,
-      date: new Date(2020, 5, 7),
-      score: 5,
-    },
-    {
-      id: 7,
-      date: new Date(2020, 6, 8),
-      score: 1,
-    },
-    {
-      id: 8,
-      date: new Date(2020, 5, 9),
-      score: 10,
-    },
-    {
-      id: 9,
-      date: new Date(2020, 3, 10),
-      score: 2,
-    },
-    {
-      id: 10,
-      date: new Date(2020, 4, 11),
-      score: 8,
-    },
-  ];
-  const dataMood5 = [
-    {
-      id: 1,
-      date: new Date(2020, 1, 2),
-      score: 0,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 2, 3),
-      score: 3,
-    },
-    {
-      id: 3,
-      date: new Date(2020, 3, 4),
-      score: 1,
-    },
-    {
-      id: 4,
-      date: new Date(2020, 2, 5),
-      score: 0,
-    },
-    {
-      id: 5,
-      date: new Date(2020, 1, 6),
-      score: 2,
-    },
-    {
-      id: 6,
-      date: new Date(2020, 2, 7),
-      score: 5,
-    },
-    {
-      id: 7,
-      date: new Date(2020, 3, 8),
-      score: 1,
-    },
-    {
-      id: 8,
-      date: new Date(2020, 2, 9),
-      score: 10,
-    },
-    {
-      id: 9,
-      date: new Date(2020, 1, 10),
-      score: 2,
-    },
-    {
-      id: 10,
-      date: new Date(2020, 3, 11),
-      score: 8,
-    },
-  ];
-  const dataMood6 = [
-    {
-      id: 1,
-      date: new Date(2020, 7, 2),
-      score: 0,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 8, 3),
-      score: 3,
-    },
-    {
-      id: 3,
-      date: new Date(2020, 9, 4),
-      score: 1,
-    },
-    {
-      id: 4,
-      date: new Date(2020, 8, 5),
-      score: 0,
-    },
-    {
-      id: 5,
-      date: new Date(2020, 7, 6),
-      score: 2,
-    },
-    {
-      id: 6,
-      date: new Date(2020, 8, 7),
-      score: 5,
-    },
-    {
-      id: 7,
-      date: new Date(2020, 9, 8),
-      score: 1,
-    },
-    {
-      id: 8,
-      date: new Date(2020, 3, 9),
-      score: 10,
-    },
-    {
-      id: 9,
-      date: new Date(2020, 8, 10),
-      score: 2,
-    },
-    {
-      id: 10,
-      date: new Date(2020, 7, 11),
-      score: 8,
-    },
-  ];
-  const dataMood7 = [
-    {
-      id: 1,
-      date: new Date(2020, 7, 2),
-      score: 0,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 4, 3),
-      score: 3,
-    },
-    {
-      id: 3,
-      date: new Date(2020, 1, 4),
-      score: 1,
-    },
-    {
-      id: 4,
-      date: new Date(2020, 2, 5),
-      score: 0,
-    },
-    {
-      id: 5,
-      date: new Date(2020, 1, 6),
-      score: 2,
-    },
-    {
-      id: 6,
-      date: new Date(2020, 4, 7),
-      score: 5,
-    },
-    {
-      id: 7,
-      date: new Date(2020, 7, 8),
-      score: 1,
-    },
-    {
-      id: 8,
-      date: new Date(2020, 4, 9),
-      score: 10,
-    },
-    {
-      id: 9,
-      date: new Date(2020, 1, 10),
-      score: 2,
-    },
-    {
-      id: 10,
-      date: new Date(2020, 4, 11),
-      score: 8,
-    },
-  ];
-
-  const dataAnxiety = [
-    {
-      id: 1,
-      date: new Date(2020, 0, 2, 17),
-      score: 1,
-    },
-    {
-      id: 2,
-      date: new Date(2020, 0, 3, 17),
-      score: 5,
-    },
-    {
-      id: 3,
-      date: new Date(2020, 0, 4, 17),
-      score: 6,
+      id: 11,
+      date: new Date(2020, 3, 12),
+      mood: 5,
+      energy: Math.floor(Math.random() * Math.floor(11)),
+      anxiety: Math.floor(Math.random() * Math.floor(11)),
+      caution: Math.floor(Math.random() * Math.floor(11)),
+      memory: Math.floor(Math.random() * Math.floor(11)),
+      anger: Math.floor(Math.random() * Math.floor(11)),
+      sleep: Math.floor(Math.random() * Math.floor(11))
     },
   ];
 
   const [state, setState] = useState(
-    {
-      zoomDomain: {x: [new Date(2020, 3, 3), Date.now()]}
-    }
+    {zoomDomain: {x: [new Date(2020, 3, 4), new Date(2020, 3, 10)]}}
   )
 
   const handleZoom = (domain) => {
     setState({zoomDomain: domain});
   }
 
-  const getData =(data)=> {
-    // const {data} = this.props
-    // console.log(data)
+  //https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
+  const getData = (data) => {
+
+    function subDays(date, days) {
+      let result = new Date(date);
+      result.setDate(result.getDate() - days);
+      return result;
+    }
+    function addDays(date, days) {
+      let result = new Date(date);
+      result.setDate(result.getDate() + days);
+      return result;
+    }
+
     const zoomedXDomain = state.zoomDomain.x;
     return data.filter(
-      (d) => (d.date >= zoomedXDomain[0] && d.date <= zoomedXDomain[1]));
+      (d) => (d.date >= subDays(zoomedXDomain[0], 1) && d.date <= addDays(zoomedXDomain[1], 1)));
   }
 
-  // const renderedData = getData()
+  const getEntireDomain = (data) => {
+    console.log('getEntireDomain')
+    return {
+      // y: [_.minBy(data, d => d.mood).mood, _.maxBy(data, d => d.mood).mood],
+      x: [data[0].date, _.last(data).date]
+    };
+  }
 
-  // const asd = ()=>{
-  //   console.log(getData(dataMood))
-  // }
+  const [entireDomain, setEntireDomain] = useState(
+      getEntireDomain(dataMood)
+  )
+  //https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
+
+  const renderLines = () => {
+
+  }
+
+  // useEffect(()=>{
+  //   setEntireDomain(getEntireDomain(dataMood))
+  // },[])
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -434,6 +200,7 @@ export const Chart = () => {
           <Svg>
             <VictoryChart width={450} height={400} scale={{x: "time"}}
                           theme={VictoryTheme.material}
+                          domain={entireDomain}
                           containerComponent={
                             <VictoryZoomContainer
                               // disableContainerEvents
@@ -444,56 +211,57 @@ export const Chart = () => {
                           }
 
             >
-              {/*{console.log(state.zoomDomain.x)}*/}
               <VictoryLine
                 style={{data: {stroke: "tomato", strokeWidth: 2}, labels: {fill: "tomato"}}}
                 data={getData(dataMood)}
                 x="date"
-                y="score"
+                y="mood"
               />
               {/*<VictoryLine*/}
               {/*  style={{data: {stroke: "black", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
               {/*  data={dataMood2}*/}
               {/*  x="date"*/}
-              {/*  y="score"*/}
+              {/*  y="mood"*/}
               {/*/>*/}
               {/*<VictoryLine*/}
               {/*  style={{data: {stroke: "blue", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
               {/*  data={dataMood3}*/}
               {/*  x="date"*/}
-              {/*  y="score"*/}
+              {/*  y="mood"*/}
               {/*/>*/}
               {/*<VictoryLine*/}
               {/*  style={{data: {stroke: "cyan", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
               {/*  data={dataMood4}*/}
               {/*  x="date"*/}
-              {/*  y="score"*/}
+              {/*  y="mood"*/}
               {/*/>*/}
               {/*<VictoryLine*/}
               {/*  style={{data: {stroke: "silver", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
               {/*  data={dataMood5}*/}
               {/*  x="date"*/}
-              {/*  y="score"*/}
+              {/*  y="mood"*/}
               {/*/>*/}
               {/*<VictoryLine*/}
               {/*  style={{data: {stroke: "yellow", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
               {/*  data={dataMood6}*/}
               {/*  x="date"*/}
-              {/*  y="score"*/}
+              {/*  y="mood"*/}
               {/*/>*/}
               {/*<VictoryLine*/}
               {/*  style={{data: {stroke: "green", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
               {/*  data={dataMood7}*/}
               {/*  x="date"*/}
-              {/*  y="score"*/}
+              {/*  y="mood"*/}
               {/*/>*/}
 
               <VictoryAxis
                 tickLabelComponent={
                   <VictoryLabel dy={0}
                                 style={{color: "cyan", stroke: 'black', strokeWidth: '10px', strokeOpacity: '0.05'}}
-                                events={{ target: 'tickLabels',
-                                  onPressIn: (evt) => console.log('tickLabelComponent') }}
+                                events={{
+                                  target: 'tickLabels',
+                                  onPressIn: (evt) => console.log('tickLabelComponent')
+                                }}
                   />}
               />
               <VictoryAxis
@@ -536,43 +304,43 @@ export const Chart = () => {
               style={{data: {stroke: "tomato", strokeWidth: 2}, labels: {fill: "tomato"}}}
               data={dataMood}
               x="date"
-              y="score"
+              y="mood"
             />
             {/*<VictoryLine*/}
             {/*  style={{data: {stroke: "black", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
             {/*  data={dataMood2}*/}
             {/*  x="date"*/}
-            {/*  y="score"*/}
+            {/*  y="mood"*/}
             {/*/>*/}
             {/*<VictoryLine*/}
             {/*  style={{data: {stroke: "blue", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
             {/*  data={dataMood3}*/}
             {/*  x="date"*/}
-            {/*  y="score"*/}
+            {/*  y="mood"*/}
             {/*/>*/}
             {/*<VictoryLine*/}
             {/*  style={{data: {stroke: "cyan", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
             {/*  data={dataMood4}*/}
             {/*  x="date"*/}
-            {/*  y="score"*/}
+            {/*  y="mood"*/}
             {/*/>*/}
             {/*<VictoryLine*/}
             {/*  style={{data: {stroke: "red", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
             {/*  data={dataMood5}*/}
             {/*  x="date"*/}
-            {/*  y="score"*/}
+            {/*  y="mood"*/}
             {/*/>*/}
             {/*<VictoryLine*/}
             {/*  style={{data: {stroke: "yellow", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
             {/*  data={dataMood6}*/}
             {/*  x="date"*/}
-            {/*  y="score"*/}
+            {/*  y="mood"*/}
             {/*/>*/}
             {/*<VictoryLine*/}
             {/*  style={{data: {stroke: "green", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
             {/*  data={dataMood7}*/}
             {/*  x="date"*/}
-            {/*  y="score"*/}
+            {/*  y="mood"*/}
             {/*/>*/}
           </VictoryChart>
         </StyledView>

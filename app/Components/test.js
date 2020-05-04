@@ -1,5 +1,40 @@
-const moment = require('moment')
+const firebase = require('firebase')
+const firestore = require ('firebase/firestore')
 
-const date = Date.now()
+const firebaseConfig = {
+  apiKey: 'AIzaSyDeCAKBPR-EhLSeRMtp1guqN_ZjO7QWvSQ',
+  authDomain: 'monitor-e951f.firebaseapp.com',
+  databaseURL: 'https://monitor-e951f.firebaseio.com',
+  projectId: 'monitor-e951f',
+  storageBucket: 'monitor-e951f.appspot.com',
+  messagingSenderId: '282768250830',
+  appId: '1:282768250830:web:9065d9b1c37ac3ad543d9f'
+};
+const fb = firebase.initializeApp(firebaseConfig);
+const db = fb.firestore();
 
-console.log(date)
+let a = []
+function query() {
+  // return async dispatch => {
+    return db.collection('data')//.doc('123123asd')
+      .get().then( (doc) => {
+        doc.forEach(doc => {
+          a.push(doc.data())
+          console.log('a: ',a)
+          // return doc.data()
+          // console.log(doc.data())
+        })
+      })
+  // }
+}
+
+// query().then((d) => {console.log(d)})
+// let b
+// async function f () {
+//   b = await query()
+//   console.log(b)
+// }
+//
+// f().then(console.log('asdasd',b))
+
+query()
