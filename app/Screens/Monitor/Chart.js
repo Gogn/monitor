@@ -172,7 +172,6 @@ export const Chart = () => {
   }
 
   const getEntireDomain = (data) => {
-    console.log('getEntireDomain')
     return {
       // y: [_.minBy(data, d => d.mood).mood, _.maxBy(data, d => d.mood).mood],
       x: [data[0].date, _.last(data).date]
@@ -185,12 +184,40 @@ export const Chart = () => {
   //https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
 
   const renderLines = () => {
-
+    let lines=[]
+    for (let i = 0;i<7;i++) {
+      const params=['mood','energy','anxiety','caution','memory','anger','sleep']
+      const colors=['#FF595E','#FFCA3A','#8AC926','#1982C4','#6A4C93','#605F5E','#794F2E']
+      lines.push(
+        <VictoryLine
+          key={i}
+          style={{data: {stroke: colors[i], strokeWidth: 2}}}
+          data={getData(dataMood)}
+          x='date'
+          y={params[i]}
+        />
+      )
+    }
+    return lines
   }
 
-  // useEffect(()=>{
-  //   setEntireDomain(getEntireDomain(dataMood))
-  // },[])
+  const renderBrushLines = () => {
+    let lines=[]
+    for (let i = 0;i<7;i++) {
+      const params=['mood','energy','anxiety','caution','memory','anger','sleep']
+      const colors=['#FF595E','#FFCA3A','#8AC926','#1982C4','#6A4C93','#605F5E','#794F2E']
+      lines.push(
+        <VictoryLine
+          key={i}
+          style={{data: {stroke: colors[i], strokeWidth: 2}}}
+          data={dataMood}
+          x='date'
+          y={params[i]}
+        />
+      )
+    }
+    return lines
+  }
 
   return (
     <SafeAreaView style={{flex: 1}}>
@@ -211,48 +238,7 @@ export const Chart = () => {
                           }
 
             >
-              <VictoryLine
-                style={{data: {stroke: "tomato", strokeWidth: 2}, labels: {fill: "tomato"}}}
-                data={getData(dataMood)}
-                x="date"
-                y="mood"
-              />
-              {/*<VictoryLine*/}
-              {/*  style={{data: {stroke: "black", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-              {/*  data={dataMood2}*/}
-              {/*  x="date"*/}
-              {/*  y="mood"*/}
-              {/*/>*/}
-              {/*<VictoryLine*/}
-              {/*  style={{data: {stroke: "blue", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-              {/*  data={dataMood3}*/}
-              {/*  x="date"*/}
-              {/*  y="mood"*/}
-              {/*/>*/}
-              {/*<VictoryLine*/}
-              {/*  style={{data: {stroke: "cyan", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-              {/*  data={dataMood4}*/}
-              {/*  x="date"*/}
-              {/*  y="mood"*/}
-              {/*/>*/}
-              {/*<VictoryLine*/}
-              {/*  style={{data: {stroke: "silver", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-              {/*  data={dataMood5}*/}
-              {/*  x="date"*/}
-              {/*  y="mood"*/}
-              {/*/>*/}
-              {/*<VictoryLine*/}
-              {/*  style={{data: {stroke: "yellow", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-              {/*  data={dataMood6}*/}
-              {/*  x="date"*/}
-              {/*  y="mood"*/}
-              {/*/>*/}
-              {/*<VictoryLine*/}
-              {/*  style={{data: {stroke: "green", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-              {/*  data={dataMood7}*/}
-              {/*  x="date"*/}
-              {/*  y="mood"*/}
-              {/*/>*/}
+              {renderLines()}
 
               <VictoryAxis
                 tickLabelComponent={
@@ -300,48 +286,7 @@ export const Chart = () => {
               }}
             />
 
-            <VictoryLine
-              style={{data: {stroke: "tomato", strokeWidth: 2}, labels: {fill: "tomato"}}}
-              data={dataMood}
-              x="date"
-              y="mood"
-            />
-            {/*<VictoryLine*/}
-            {/*  style={{data: {stroke: "black", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-            {/*  data={dataMood2}*/}
-            {/*  x="date"*/}
-            {/*  y="mood"*/}
-            {/*/>*/}
-            {/*<VictoryLine*/}
-            {/*  style={{data: {stroke: "blue", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-            {/*  data={dataMood3}*/}
-            {/*  x="date"*/}
-            {/*  y="mood"*/}
-            {/*/>*/}
-            {/*<VictoryLine*/}
-            {/*  style={{data: {stroke: "cyan", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-            {/*  data={dataMood4}*/}
-            {/*  x="date"*/}
-            {/*  y="mood"*/}
-            {/*/>*/}
-            {/*<VictoryLine*/}
-            {/*  style={{data: {stroke: "red", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-            {/*  data={dataMood5}*/}
-            {/*  x="date"*/}
-            {/*  y="mood"*/}
-            {/*/>*/}
-            {/*<VictoryLine*/}
-            {/*  style={{data: {stroke: "yellow", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-            {/*  data={dataMood6}*/}
-            {/*  x="date"*/}
-            {/*  y="mood"*/}
-            {/*/>*/}
-            {/*<VictoryLine*/}
-            {/*  style={{data: {stroke: "green", strokeWidth: 2}, labels: {fill: "tomato"}}}*/}
-            {/*  data={dataMood7}*/}
-            {/*  x="date"*/}
-            {/*  y="mood"*/}
-            {/*/>*/}
+            {renderBrushLines()}
           </VictoryChart>
         </StyledView>
 
