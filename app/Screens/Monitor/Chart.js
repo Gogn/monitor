@@ -1,5 +1,5 @@
-import {Text, View} from "react-native";
-import React, {useEffect, useState} from "react";
+import {ScrollView, Text, View} from "react-native";
+import React, {useEffect, useMemo, useState} from "react";
 import {Container, StyledView} from "../../theme";
 import styled from "styled-components";
 import {
@@ -17,6 +17,8 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import moment from "moment";
 import Svg from "react-native-svg";
 import _ from 'lodash';
+import {SliderMood} from "../../Components/UI/SliderMood";
+import {Button} from "react-native-elements";
 
 export const Chart = () => {
 
@@ -160,6 +162,7 @@ export const Chart = () => {
       result.setDate(result.getDate() - days);
       return result;
     }
+
     function addDays(date, days) {
       let result = new Date(date);
       result.setDate(result.getDate() + days);
@@ -179,15 +182,16 @@ export const Chart = () => {
   }
 
   const [entireDomain, setEntireDomain] = useState(
-      getEntireDomain(dataMood)
+    getEntireDomain(dataMood)
   )
   //https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
 
   const renderLines = () => {
-    let lines=[]
-    for (let i = 0;i<7;i++) {
-      const params=['mood','energy','anxiety','caution','memory','anger','sleep']
-      const colors=['#FF595E','#FFCA3A','#8AC926','#1982C4','#6A4C93','#605F5E','#794F2E']
+    // useMemo(()=>{
+    let lines = []
+    for (let i = 0; i < 7; i++) {
+      const params = ['mood', 'energy', 'anxiety', 'caution', 'memory', 'anger', 'sleep']
+      const colors = ['#FF595E', '#FFCA3A', '#8AC926', '#1982C4', '#6A4C93', '#605F5E', '#794F2E']
       lines.push(
         <VictoryLine
           key={i}
@@ -199,13 +203,15 @@ export const Chart = () => {
       )
     }
     return lines
+    // },[dataMood])
   }
 
   const renderBrushLines = () => {
-    let lines=[]
-    for (let i = 0;i<7;i++) {
-      const params=['mood','energy','anxiety','caution','memory','anger','sleep']
-      const colors=['#FF595E','#FFCA3A','#8AC926','#1982C4','#6A4C93','#605F5E','#794F2E']
+    // useMemo(()=>{
+    let lines = []
+    for (let i = 0; i < 7; i++) {
+      const params = ['mood', 'energy', 'anxiety', 'caution', 'memory', 'anger', 'sleep']
+      const colors = ['#FF595E', '#FFCA3A', '#8AC926', '#1982C4', '#6A4C93', '#605F5E', '#794F2E']
       lines.push(
         <VictoryLine
           key={i}
@@ -217,17 +223,25 @@ export const Chart = () => {
       )
     }
     return lines
+    // },[dataMood])
   }
+
 
   return (
     <SafeAreaView style={{flex: 1}}>
-      <StyledView>
+      <ScrollView
+        style={{ flex: 1}}
+          contentContainerStyle={{
+            flexGrow: 1,
+        }}
+      >
 
-        <StyledView>
+        <StyledView style={{ padding: 0, justifyContent: 'flex-start', alignItems: 'center'}}>
           <Svg>
             <VictoryChart width={450} height={400} scale={{x: "time"}}
                           theme={VictoryTheme.material}
                           domain={entireDomain}
+                          padding={{ top: 20, bottom: 50, right: 40, left: 50 }}
                           containerComponent={
                             <VictoryZoomContainer
                               // disableContainerEvents
@@ -238,6 +252,7 @@ export const Chart = () => {
                           }
 
             >
+
               {renderLines()}
 
               <VictoryAxis
@@ -290,17 +305,38 @@ export const Chart = () => {
           </VictoryChart>
         </StyledView>
 
-        {/*<View style={{flex: 0.2}}>*/}
-        {/*  <Text>asdasdasd</Text>*/}
-        {/*</View>*/}
+        <View style={{
+          position: "absolute", marginLeft: '87%', marginTop: 20, marginRight: 10,
+         }}>
+          <Button
+            type="outline"
+            title={'?'}
+            onPress={() => console.log(state)}
+          />
+        </View>
 
-      </StyledView>
+        <StyledView style={{}}>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+          <Text>asda123sdasd</Text>
+        </StyledView>
+
+      </ScrollView>
+
     </SafeAreaView>
   )
 }
 
-const StyledView1 = styled(StyledView)`
+const ChartView = styled(View)`
 flex: 1;
+justify-content: center;
+width: 100%;
+background-color: aqua;
 `
 
 const StyledView2 = styled(StyledView)`
