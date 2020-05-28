@@ -3,3 +3,4 @@ export const AUTH_LOGOUT = 'AUTH_LOGOUT'
 
 export const USER_TAGS = 'USER_TAGS'
 export const UPDATE_USER_TAGS = 'REMOVE_USER_TAG'
+export const SET_SELECTED_TAGS = 'SET_SELECTED_TAGS'

@@ -4,7 +4,7 @@ import styled from "styled-components/native";
 import {StyledView} from "../../theme";
 import {db} from "../../firebase";
 import {useDispatch, useSelector} from "react-redux";
-import {tagsOfUser, remove_user_tag, updateTags} from "../../store/actions/appActions";
+import {tagsOfUser, remove_user_tag, updateTags, tagsToStore, tags_to_store} from "../../store/actions/appActions";
 import {Text, Button, Overlay, Input} from "react-native-elements";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import {OverlayInput} from "./OverlayInput";
@@ -17,6 +17,10 @@ export const TagPicker = () => {
   const [selectedTags, setSelectedTags] = useState([])
   const [i, seti] = useState()
   const [overlay, setOverlay] = useState(false)
+
+  const selectedTagsToStore = (tags) => {
+
+  }
 
 
   useEffect(() => {
@@ -36,7 +40,7 @@ export const TagPicker = () => {
 
   const renderTags = () => {
     return useMemo(() => {
-      console.log('renderTags')
+      // console.log('renderTags')
       return availableTags.map((tag, index) => {
         return (
           <TagText
@@ -45,7 +49,10 @@ export const TagPicker = () => {
               // Remove tag from available
               setAvailableTags(availableTags.filter((tag, i) => i !== index))
               // Move tag to selected
-              setSelectedTags([...selectedTags, tag])
+              //Use local store
+              // setSelectedTags([...selectedTags, tag])
+              //Use dispatch to AppActions
+              dispatch(tags_to_store([...selectedTags, tag]))
             }}
             onLongPress={() => {
               // Remove tag from available
@@ -101,7 +108,7 @@ export const TagPicker = () => {
 
       {renderOverlay()}
 
-      <InputTagView>
+      <InputTagView style={{borderBottomColor: 'black', borderBottomWidth: 2}}>
         <TagView>
 
           {renderSelectedTags()}
@@ -119,13 +126,6 @@ export const TagPicker = () => {
         {renderTags()}
       </TagView>
 
-      <Button
-        title={'Submit'}
-        onPress={() => {
-          console.log(store.tags)
-        }}
-      />
-
     </Container>
   )
 }
@@ -141,7 +141,6 @@ width: 90%;
 
 const InputTagView = styled.View`
 padding: 0 5px 0 5px;
-border: 1px black;
 flex: 1;
 align-items: flex-start;
 justify-content: center;

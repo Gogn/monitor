@@ -23,6 +23,10 @@ const dataOfUser = () => {
   }
 }
 
+const pushDataToServer = () => {
+
+}
+
 export const Home = () => {
   let isoDate = new Date()
   const [state, setState] = useState(
@@ -73,12 +77,14 @@ export const Home = () => {
       >
         {renderSliders()}
 
-        {/*<Button*/}
-        {/*  title={'state'}*/}
-        {/*  onPress={() => console.log(state)}*/}
-        {/*/>*/}
-
         <TagPicker/>
+
+        <Button
+          title={'Submit'}
+          onPress={() => {
+            console.log(store.tags)
+          }}
+        />
 
       </ScrollView>
     </StyledView>

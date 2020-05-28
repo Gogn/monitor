@@ -18,9 +18,13 @@ import moment from "moment";
 import Svg from "react-native-svg";
 import _ from 'lodash';
 import {SliderMood} from "../../Components/UI/SliderMood";
-import {Button} from "react-native-elements";
+import {Button, Input, Overlay} from "react-native-elements";
+import {updateTags} from "../../store/actions/appActions";
+import {OverlayInput} from "../../Components/UI/OverlayInput";
+import {TableMood} from "../../Components/UI/TableMood";
 
 export const Chart = () => {
+  const [overlay, setOverlay] = useState(false)
 
   const dataMood = [
     {
@@ -170,6 +174,7 @@ export const Chart = () => {
     }
 
     const zoomedXDomain = state.zoomDomain.x;
+
     return data.filter(
       (d) => (d.date >= subDays(zoomedXDomain[0], 1) && d.date <= addDays(zoomedXDomain[1], 1)));
   }
@@ -211,7 +216,7 @@ export const Chart = () => {
     let lines = []
     for (let i = 0; i < 7; i++) {
       const params = ['mood', 'energy', 'anxiety', 'caution', 'memory', 'anger', 'sleep']
-      const colors = ['#FF595E', '#FFCA3A', '#8AC926', '#1982C4', '#6A4C93', '#605F5E', '#794F2E']
+      const colors = ['#FF595E', '#FFCA3A', '#8AC926', '#1982c4', '#6A4C93', '#605F5E', '#794F2E']
       lines.push(
         <VictoryLine
           key={i}
@@ -226,43 +231,80 @@ export const Chart = () => {
     // },[dataMood])
   }
 
+  const overlayInputHandler = () => {
+    setOverlay(false)
+  }
+
+  const renderOverlay = () => {
+    return useMemo(() => {
+      return (
+        <Overlay isVisible={overlay}>
+          <StyledView>
+            <Text h4>Type what you are take</Text>
+            <Button
+              title={'Submit'}
+              onPress={() => {
+                overlayInputHandler()
+              }}
+            />
+          </StyledView>
+        </Overlay>
+      )
+    }, [overlay])
+  }
+
+// const getDate
+
+
+
 
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView
-        style={{ flex: 1}}
-          contentContainerStyle={{
-            flexGrow: 1,
+        style={{flex: 1}}
+        contentContainerStyle={{
+          flexGrow: 1,
         }}
       >
 
-        <StyledView style={{ padding: 0, justifyContent: 'flex-start', alignItems: 'center'}}>
-          <Svg>
-            <VictoryChart width={450} height={400} scale={{x: "time"}}
-                          theme={VictoryTheme.material}
-                          domain={entireDomain}
-                          padding={{ top: 20, bottom: 50, right: 40, left: 50 }}
-                          containerComponent={
-                            <VictoryZoomContainer
-                              // disableContainerEvents
-                              zoomDimension="x"
-                              zoomDomain={state.zoomDomain}
-                              onZoomDomainChange={(domain) => handleZoom(domain)}
-                            />
-                          }
+        {renderOverlay()}
 
+        <StyledView style={{padding: 0, justifyContent: 'flex-start', alignItems: 'center'}}>
+          <Svg>
+            <VictoryChart
+              width={450} height={400} scale={{x: "time"}}
+              theme={VictoryTheme.material}
+              domain={entireDomain}
+              padding={{top: 20, bottom: 50, right: 40, left: 50}}
+              containerComponent={
+                <VictoryZoomContainer
+                  // disableContainerEvents
+                  zoomDimension="x"
+                  zoomDomain={state.zoomDomain}
+                  onZoomDomainChange={(domain) => handleZoom(domain)}
+                />
+              }
             >
 
               {renderLines()}
 
               <VictoryAxis
+                tickFormat={(data) => ('0' + data.getDate()).slice(-2) + '/' + ('0' + (data.getMonth()+1)).slice(-2)}
+                // gridComponent={
+                //   <LineSegment
+                //     events={{ onPressIn: (evt) => console.log(evt) }}
+                //     style={{color:'red', strokeWidth: 5}}
+                //   />}
+                // tickCount={3}
                 tickLabelComponent={
-                  <VictoryLabel dy={0}
-                                style={{color: "cyan", stroke: 'black', strokeWidth: '10px', strokeOpacity: '0.05'}}
-                                events={{
-                                  target: 'tickLabels',
-                                  onPressIn: (evt) => console.log('tickLabelComponent')
-                                }}
+                  <VictoryLabel
+                    dy={0}
+                    angle={0}
+                    data={getData(dataMood)}
+                    style={{color: "cyan", stroke: 'black', strokeWidth: '10px', strokeOpacity: '0.05'}}
+                    events={{
+                      onPressIn: (evt) => console.log(evt)
+                    }}
                   />}
               />
               <VictoryAxis
@@ -285,6 +327,7 @@ export const Chart = () => {
             }
           >
             <VictoryAxis
+              tickFormat={(data) => ('0' + data.getDate()).slice(-2) + '/' + ('0' + (data.getMonth()+1)).slice(-2)}
               // tickValues={dataMood.map((p) => {
               //   return p.date
               // })}
@@ -305,26 +348,21 @@ export const Chart = () => {
           </VictoryChart>
         </StyledView>
 
-        <View style={{
-          position: "absolute", marginLeft: '87%', marginTop: 20, marginRight: 10,
-         }}>
+        <View style={{position: "absolute", marginLeft: '87%', marginTop: 20, marginRight: 10}}>
           <Button
             type="outline"
             title={'?'}
-            onPress={() => console.log(state)}
+            onPress={() => {
+              setOverlay(true)
+            }}
           />
         </View>
 
-        <StyledView style={{}}>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-          <Text>asda123sdasd</Text>
-        </StyledView>
+        <View>
+          <TableMood
+          data={dataMood}
+          />
+        </View>
 
       </ScrollView>
 

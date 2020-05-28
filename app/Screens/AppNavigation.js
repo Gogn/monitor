@@ -30,7 +30,7 @@ function AppTabs() {
       />
       <Tab.Screen name="Home" component={Home}
                   options={{
-                    tabBarLabel: 'Home',
+                    tabBarLabel: 'Today',
                     tabBarIcon: ({ color, size }) => (
                       <Ionicons name="ios-today" color={color} size={size} />
                     ),
