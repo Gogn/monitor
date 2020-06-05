@@ -27,10 +27,10 @@ export default function appReducer(state = initialState, action) {
       }
     case SET_SELECTED_TAGS:
       console.log('SET_SELECTED_TAGS')
-      console.log(action.selectedTags)
+      // console.log(action.selectedTags)
       return {
         ...state,
-        selectedTags: action.selectedTags
+        selectedTags: [...state.selectedTags, ...action.selectedTags]
       }
     default:
       return state

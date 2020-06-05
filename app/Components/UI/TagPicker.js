@@ -55,7 +55,7 @@ export const TagPicker = () => {
               // setSelectedTags([...selectedTags, tag])
               //Use dispatch to AppActions
               dispatch(tags_to_store([...selectedTags, tag]))
-              console.log(app_store)
+              // console.log(app_store)
             }}
             onLongPress={() => {
               // Remove tag from available
