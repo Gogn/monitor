@@ -6,7 +6,6 @@ import React, {useState} from "react";
 export const OverlayInput = ({overlay, onPress}) => {
   const [newTagInput, setNewTagInput] = useState()
 
-  console.log('OverlayInput')
   return (
     <Overlay isVisible={overlay}>
       <StyledView>

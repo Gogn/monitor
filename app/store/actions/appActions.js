@@ -50,8 +50,10 @@ export const tagsToStore = (tags) => {
   }
 }
 
+//Добавление тагов в стор, чтобы иметь возможность отправить их в БД
  export const tags_to_store = (tags) => {
    console.log('tags_to_store')
+   console.log()
   return {
     type: SET_SELECTED_TAGS,
     selectedTags: tags

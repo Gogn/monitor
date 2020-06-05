@@ -10,7 +10,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import {OverlayInput} from "./OverlayInput";
 
 export const TagPicker = () => {
-  const store = useSelector(state => state.authReducer)
+  const auth_store = useSelector(state => state.authReducer)
+  const app_store = useSelector(state => state.appReducer)
+
   const dispatch = useDispatch()
 
   const [availableTags, setAvailableTags] = useState([])
@@ -35,7 +37,7 @@ export const TagPicker = () => {
 
   useEffect(() => {
     console.log('effect of i, i: ',i)
-    setAvailableTags(store.tags)
+    setAvailableTags(auth_store.tags)
   }, [i])
 
   const renderTags = () => {
@@ -53,6 +55,7 @@ export const TagPicker = () => {
               // setSelectedTags([...selectedTags, tag])
               //Use dispatch to AppActions
               dispatch(tags_to_store([...selectedTags, tag]))
+              console.log(app_store)
             }}
             onLongPress={() => {
               // Remove tag from available
