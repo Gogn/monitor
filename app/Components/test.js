@@ -2,13 +2,6 @@ const firebase = require('firebase')
 const firestore = require ('firebase/firestore')
 
 const firebaseConfig = {
-  apiKey: 'AIzaSyDeCAKBPR-EhLSeRMtp1guqN_ZjO7QWvSQ',
-  authDomain: 'monitor-e951f.firebaseapp.com',
-  databaseURL: 'https://monitor-e951f.firebaseio.com',
-  projectId: 'monitor-e951f',
-  storageBucket: 'monitor-e951f.appspot.com',
-  messagingSenderId: '282768250830',
-  appId: '1:282768250830:web:9065d9b1c37ac3ad543d9f'
 };
 const fb = firebase.initializeApp(firebaseConfig);
 const db = fb.firestore();
