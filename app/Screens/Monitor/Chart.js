@@ -24,174 +24,179 @@ import {OverlayInput} from "../../Components/UI/OverlayInput";
 import {TableMood} from "../../Components/UI/TableMood";
 
 export const Chart = () => {
+  console.log('Chart',new Date())
   const [overlay, setOverlay] = useState(false)
 
-  const dataMood = [
+  const dateFormat = 'YYYY-MM-DD'
+
+  const data = [
     {
-      id: 1,
-      date: new Date(2020, 3, 2),
-      mood: 0,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 1,
+      "date": "2020-04-01",
+      "mood": 0,
+      "energy": 9,
+      "anxiety": 2,
+      "caution": 7,
+      "memory": 4,
+      "anger": 4,
+      "sleep": 5
     },
     {
-      id: 2,
-      date: new Date(2020, 3, 3),
-      mood: 3,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 2,
+      "date": "2020-04-02",
+      "mood": 3,
+      "energy": 3,
+      "anxiety": 3,
+      "caution": 4,
+      "memory": 4,
+      "anger": 7,
+      "sleep": 10
     },
     {
-      id: 3,
-      date: new Date(2020, 3, 4),
-      mood: 1,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 3,
+      "date": "2020-04-03",
+      "mood": 1,
+      "energy": 2,
+      "anxiety": 4,
+      "caution": 6,
+      "memory": 7,
+      "anger": 2,
+      "sleep": 5
     },
     {
-      id: 4,
-      date: new Date(2020, 3, 5),
-      mood: 0,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 4,
+      "date": "2020-04-04",
+      "mood": 0,
+      "energy": 2,
+      "anxiety": 3,
+      "caution": 8,
+      "memory": 0,
+      "anger": 8,
+      "sleep": 7
     },
     {
-      id: 5,
-      date: new Date(2020, 3, 6),
-      mood: 2,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 5,
+      "date": "2020-04-05",
+      "mood": 2,
+      "energy": 1,
+      "anxiety": 1,
+      "caution": 1,
+      "memory": 0,
+      "anger": 1,
+      "sleep": 7
     },
     {
-      id: 6,
-      date: new Date(2020, 3, 7),
-      mood: 5,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 6,
+      "date": "2020-04-06",
+      "mood": 5,
+      "energy": 1,
+      "anxiety": 3,
+      "caution": 3,
+      "memory": 3,
+      "anger": 1,
+      "sleep": 4
     },
     {
-      id: 7,
-      date: new Date(2020, 3, 8),
-      mood: 1,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 7,
+      "date": "2020-04-07",
+      "mood": 1,
+      "energy": 6,
+      "anxiety": 1,
+      "caution": 1,
+      "memory": 4,
+      "anger": 5,
+      "sleep": 5
     },
     {
-      id: 8,
-      date: new Date(2020, 3, 9),
-      mood: 10,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 8,
+      "date": "2020-04-08",
+      "mood": 10,
+      "energy": 8,
+      "anxiety": 6,
+      "caution": 9,
+      "memory": 1,
+      "anger": 3,
+      "sleep": 7
     },
     {
-      id: 9,
-      date: new Date(2020, 3, 10),
-      mood: 2,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 9,
+      "date": "2020-04-09",
+      "mood": 2,
+      "energy": 10,
+      "anxiety": 6,
+      "caution": 9,
+      "memory": 8,
+      "anger": 2,
+      "sleep": 1
     },
     {
-      id: 10,
-      date: new Date(2020, 3, 11),
-      mood: 8,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
+      "id": 10,
+      "date": "2020-04-10",
+      "mood": 8,
+      "energy": 5,
+      "anxiety": 7,
+      "caution": 2,
+      "memory": 0,
+      "anger": 7,
+      "sleep": 5
     },
     {
-      id: 11,
-      date: new Date(2020, 3, 12),
-      mood: 5,
-      energy: Math.floor(Math.random() * Math.floor(11)),
-      anxiety: Math.floor(Math.random() * Math.floor(11)),
-      caution: Math.floor(Math.random() * Math.floor(11)),
-      memory: Math.floor(Math.random() * Math.floor(11)),
-      anger: Math.floor(Math.random() * Math.floor(11)),
-      sleep: Math.floor(Math.random() * Math.floor(11))
-    },
+      "id": 11,
+      "date": "2020-04-11",
+      "mood": 5,
+      "energy": 1,
+      "anxiety": 8,
+      "caution": 5,
+      "memory": 9,
+      "anger": 7,
+      "sleep": 3
+    }
   ];
 
+  const dataMood = useMemo(() =>
+    data.map((e,i) => {return {...e, date: moment(e.date, dateFormat)}})
+  ,[data])
+
+  // useEffect(() => {
+  //   setDataMood(data.map((e,i) => {
+  //     return {...e, date: moment(e.date, dateFormat)}
+  //   }))
+  //
+  //   console.log('useEffect dataMood')
+  // }, [data])
+
+
   const [state, setState] = useState(
-    {zoomDomain: {x: [new Date(2020, 3, 4), new Date(2020, 3, 10)]}}
+    {zoomDomain: {x: [moment(new Date(2020, 3, 1)), moment(new Date(2020, 3, 11))]}}
   )
 
   const handleZoom = (domain) => {
+    console.log('handleZoom',new Date())
     setState({zoomDomain: domain});
   }
 
   //https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
   const getData = (data) => {
-
-    function subDays(date, days) {
-      let result = new Date(date);
-      result.setDate(result.getDate() - days);
-      return result;
-    }
-
-    function addDays(date, days) {
-      let result = new Date(date);
-      result.setDate(result.getDate() + days);
-      return result;
-    }
-
-    const zoomedXDomain = state.zoomDomain.x;
-
+    console.log('getData',new Date())
     return data.filter(
-      (d) => (d.date >= subDays(zoomedXDomain[0], 1) && d.date <= addDays(zoomedXDomain[1], 1)));
+      (d) => (
+        moment(d.date, dateFormat) >= moment(state.zoomDomain.x[0], dateFormat).subtract(1,'d') &&
+        moment(d.date, dateFormat) <= moment(state.zoomDomain.x[1], dateFormat).add(1,'d')
+      ));
   }
 
   const getEntireDomain = (data) => {
+    // console.log('getEntireDomain: ', {x: [moment(data[0].date, dateFormat), moment(data[data.length - 1].date, dateFormat)]})
     return {
       // y: [_.minBy(data, d => d.mood).mood, _.maxBy(data, d => d.mood).mood],
-      x: [data[0].date, _.last(data).date]
+      x: [moment(data[0].date, dateFormat), moment(data[data.length-1].date, dateFormat)]
     };
   }
 
-  const [entireDomain, setEntireDomain] = useState(
-    getEntireDomain(dataMood)
-  )
-  //https://formidable.com/open-source/victory/guides/zoom-on-large-datasets/
+  // const [entireDomain, setEntireDomain] = useState(getEntireDomain(dataMood))
 
   const renderLines = () => {
+    console.log('renderLines',new Date())
     // useMemo(()=>{
     let lines = []
     for (let i = 0; i < 7; i++) {
@@ -212,6 +217,7 @@ export const Chart = () => {
   }
 
   const renderBrushLines = () => {
+    console.log('renderBrushLines',new Date())
     // useMemo(()=>{
     let lines = []
     for (let i = 0; i < 7; i++) {
@@ -253,11 +259,6 @@ export const Chart = () => {
     }, [overlay])
   }
 
-// const getDate
-
-
-
-
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView
@@ -269,27 +270,22 @@ export const Chart = () => {
 
         {renderOverlay()}
 
+        {dataMood && dataMood[0] ?
         <StyledView style={{padding: 0, justifyContent: 'flex-start', alignItems: 'center'}}>
           <Svg>
+            {/*Основной график*/}
             <VictoryChart
-              width={450} height={400} scale={{x: "time"}}
+              width={450} height={400} scale={{x: "linear"}}
               theme={VictoryTheme.material}
-              domain={entireDomain}
+              domain={state.zoomDomain}
               padding={{top: 20, bottom: 50, right: 40, left: 50}}
-              containerComponent={
-                <VictoryZoomContainer
-                  // disableContainerEvents
-                  zoomDimension="x"
-                  zoomDomain={state.zoomDomain}
-                  onZoomDomainChange={(domain) => handleZoom(domain)}
-                />
-              }
             >
 
               {renderLines()}
 
+              {/*Оси*/}
               <VictoryAxis
-                tickFormat={(data) => ('0' + data.getDate()).slice(-2) + '/' + ('0' + (data.getMonth()+1)).slice(-2)}
+                tickFormat={(data) => (moment(data).format('MM/DD'))}
                 // gridComponent={
                 //   <LineSegment
                 //     events={{ onPressIn: (evt) => console.log(evt) }}
@@ -314,6 +310,8 @@ export const Chart = () => {
 
             </VictoryChart>
           </Svg>
+
+          {/*Общий уменьшенный график*/}
           <VictoryChart
             padding={{top: 0, left: 50, right: 50, bottom: 30}}
             width={450} height={100} scale={{x: "time"}}
@@ -322,19 +320,19 @@ export const Chart = () => {
               <VictoryBrushContainer
                 brushDimension="x"
                 brushDomain={state.zoomDomain}
-                onBrushDomainChangeEnd={(domain) => handleZoom(domain)}
+                onBrushDomainChange={(domain) => handleZoom(domain)}
               />
-            }
-          >
+            }>
+
             <VictoryAxis
-              tickFormat={(data) => ('0' + data.getDate()).slice(-2) + '/' + ('0' + (data.getMonth()+1)).slice(-2)}
+              tickFormat={(data) => (moment(data, dateFormat).format('MM/DD'))}
               // tickValues={dataMood.map((p) => {
               //   return p.date
               // })}
               // tickFormat={(x) => new Date(x).getDate()}
               // domain={{x: [new Date(2020, 0, 2), Date.now()]}}
-              // domainPadding={{x: 50}}
-              // fixLabelOverlap={true}
+              domainPadding={{x: 50}}
+              fixLabelOverlap={true}
               style={{
                 // axis: {stroke: "#756f6a"},
                 axisLabel: {fontSize: 20, padding: 30},
@@ -347,6 +345,7 @@ export const Chart = () => {
             {renderBrushLines()}
           </VictoryChart>
         </StyledView>
+      : <View><Text>asdasd</Text></View>}
 
         <View style={{position: "absolute", marginLeft: '87%', marginTop: 20, marginRight: 10}}>
           <Button
@@ -358,11 +357,11 @@ export const Chart = () => {
           />
         </View>
 
-        <View>
-          <TableMood
-          data={dataMood}
-          />
-        </View>
+        {/*<View>*/}
+        {/*  <TableMood*/}
+        {/*  data={dataMood}*/}
+        {/*  />*/}
+        {/*</View>*/}
 
       </ScrollView>
 

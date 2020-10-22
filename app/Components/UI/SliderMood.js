@@ -1,14 +1,7 @@
 import React, {useMemo, useState} from 'react'
 import {Slider, Text} from "react-native-elements";
 import {ScrollView, View} from "react-native";
-//
-// const [state, setState] = useState()
-//
-// const changeHandler = ({name,value}) => {
-//   console.log(state)
-//   setState({[name]: value})
-//   return state
-// }
+
 
 const numbers = (props) => {
     const items = []
@@ -28,7 +21,7 @@ export const SliderMood = (props) => {
       </View>
       <Slider
         value={props.param}
-        onValueChange={props.onChange}
+        onValueChange={value => props.onChange(value)}
         maximumValue={10}
         minimumValue={0}
         step={1}

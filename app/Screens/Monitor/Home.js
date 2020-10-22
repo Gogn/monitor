@@ -29,6 +29,7 @@ const pushDataToServer = () => {
 
 export const Home = () => {
   let isoDate = new Date()
+
   const [state, setState] = useState(
     {
       mood: 0,
@@ -42,8 +43,6 @@ export const Home = () => {
   )
 
   const onChangeHandler = (event, param) => {
-    // console.log(param,' ',event)
-    // console.log(state)
     setState({...state, [param]: event})
   }
 
@@ -82,7 +81,7 @@ export const Home = () => {
         <Button
           title={'Submit'}
           onPress={() => {
-            console.log(store.tags)
+            console.log(state)
           }}
         />
 

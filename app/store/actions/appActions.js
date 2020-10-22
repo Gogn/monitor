@@ -43,19 +43,33 @@ export const update_user_tags = (tags) => ({
   index: tags
 })
 
-export const tagsToStore = (tags) => {
-  console.log('setSelectedTags')
-  return async dispatch => {
-    return tags_to_store(tags)
-  }
-}
+// export const tagsToStore = (tags) => {
+//   console.log('setSelectedTags')
+//     return tags_to_store(tags)
+//   }
+// }
 
 //Добавление тагов в стор, чтобы иметь возможность отправить их в БД
  export const tags_to_store = (tags) => {
    console.log('tags_to_store')
-   console.log()
   return {
     type: SET_SELECTED_TAGS,
     selectedTags: tags
+  }
+}
+
+export const updateDayParams = (params) => {
+  console.log('updateDayParams')
+  return async dispatch => {
+    let userId = await AsyncStorage.getItem('userId')
+
+    let tagsToDB = []
+    tags.length > 7 ? (tagsToDB = tags.slice(1, tags.length)) : tagsToDB = tags
+
+    return db.collection('users').doc(userId)
+      .set({tags: tagsToDB}, {merge: true})
+      .then(() => {
+        return dispatch(update_user_tags(tagsToDB))
+      })
   }
 }
